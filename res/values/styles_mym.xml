@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="EditTextmym" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/mym_edit_text_holo_light</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="AutoCompleteTextViewmym" parent="android:Widget.AutoCompleteTextView">
+        <item name="android:dropDownSelector">@drawable/mym_list_selector_holo_light</item>
+        <item name="android:background">@drawable/mym_edit_text_holo_light</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="CheckBoxmym" parent="android:Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/mym_btn_check_holo_light</item>
+    </style>
+
+    <style name="RadioButtonmym" parent="android:Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/mym_btn_radio_holo_light</item>
+    </style>
+
+    <style name="Buttonmym" parent="android:Widget.Button">
+        <item name="android:background">@drawable/mym_btn_default_holo_light</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:minWidth">64dip</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="ImageButtonmym" parent="android:Widget.ImageButton">
+        <item name="android:background">@drawable/mym_btn_default_holo_light</item>
+    </style>
+
+    <style name="Spinnermym" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/mym_spinner_background_holo_light</item>
+        <item name="android:dropDownSelector">@drawable/mym_list_selector_holo_light</item>
+    </style>
+
+    <style name="SpinnerDropDownItemmym" parent="android:Widget.DropDownItem.Spinner">
+        <item name="android:checkMark">@drawable/mym_btn_radio_holo_light</item>
+    </style>
+
+    <style name="ProgressBarmym" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/mym_progress_horizontal_holo_light</item>
+        <item name="android:indeterminateDrawable">@drawable/mym_progress_indeterminate_horizontal_holo_light</item>
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dip</item>
+    </style>
+
+    <style name="Togglemym" parent="android:Widget.Button.Toggle">
+        <item name="android:background">@drawable/mym_btn_toggle_holo_light</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="ListViewmym" parent="android:Widget.ListView">
+        <item name="android:listSelector">@drawable/mym_list_selector_holo_light</item>
+    </style>
+
+    <style name="ListViewmym.White" parent="android:Widget.ListView.White">
+        <item name="android:listSelector">@drawable/mym_list_selector_holo_light</item>
+    </style>
+
+    <style name="SpinnerItemmym" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#000000</item>
+    </style>
+
+</resources>

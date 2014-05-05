@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Mym" parent="@style/_mym"></style>
+
+    <style name="_mym" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_mym</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Mym</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Mym</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Mym</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Mym</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Mym</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_mym</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_mym</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Mym</item>
+
+        <!-- Light.DarkActionBar specific -->
+        <item name="android:actionBarWidgetTheme">@style/Theme.Mym.Widget</item>
+        <item name="android:editTextBackground">@drawable/mym_edit_text_holo_light</item>
+        <item name="android:textColorHighlight">#99da2f2b</item>
+        <item name="android:textSelectHandleLeft">@drawable/mym_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/mym_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/mym_text_select_handle_middle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewmym</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/mym_btn_check_holo_light</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/mym_btn_radio_holo_light</item>
+        <item name="android:buttonStyle">@style/Buttonmym</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonmym</item>
+        <item name="android:dropDownSpinnerStyle">@style/Spinnermym</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarmym</item>
+        <item name="android:buttonStyleToggle">@style/Togglemym</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/mym_list_selector_holo_light</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/mym_activated_background_holo_light</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/mym_fastscroll_thumb_holo</item>
+    </style>
+
+    <style name="ActionBar.Solid.Mym" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_solid_mym</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_mym</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_mym</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Mym</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Mym" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_mym</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Mym</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Mym.Widget" parent="@style/Theme.AppCompat">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Mym</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Mym</item>
+    </style>
+
+</resources>
