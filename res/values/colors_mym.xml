@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="mym_color">#da2f2b</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="text_muted">#54595c</color>
+    <color name="menu_color_selected">#2ecc71</color>
+    <color name="solid_white">#eeeeee</color>
+    <color name="white_frame">#f5f6f7</color>
+    <color name="navmenu_bg">#616962</color>
+    <color name="transparent_black">#80000000</color>
+
 </resources>

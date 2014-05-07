@@ -7,7 +7,17 @@
     <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
-    <string name="action_settings">Settings</string>
+    <string name="quiz">Quiz</string>
+    <string name="virtualsharemarket">Game</string>
+    <string name="about">About</string>
+    <string name="leader_bord">Leader bord</string>
+    <string name="help">Help</string>
+    <string name="developer">Team Matrix</string>
+    <string name="version">Version : %s</string>
+    <string name="feedback_mail_subject">Feedback of %s android app</string>
+    <string name="feedback_mail_body">Phone model : %1$s\nApplication name : %2$s\nApplication version name: %3$s\nApplication version code : %4$s\nPhone android version : %5$s\n\nPlease provide more details below :\n</string>
+    <string name="send_feedback">Send feedback</string>
+    <string name="feedback">Feedback</string>
+    <string name="rate_the_app">Rate the app</string>
 
 </resources>

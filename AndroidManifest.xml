@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.Mym" >
         <activity
-            android:name="com.matrix.mym.MymMainActivity"
+            android:name="com.matrix.mym.view.activity.MymMainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

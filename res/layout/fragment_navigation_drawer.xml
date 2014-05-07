@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cccc"
+    android:background="@color/navmenu_bg"
     android:choiceMode="singleChoice"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="0dp"
-    tools:context="com.matrix.mym.NavigationDrawerFragment" />
+    android:divider="@color/transparent_black"
+    android:dividerHeight="1dp"
+    android:listSelector="@drawable/mym_list_selector_holo_light"
+    tools:context="com.matrix.mym.view.fragments.NavigationDrawerFragment" />
