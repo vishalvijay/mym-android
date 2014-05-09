@@ -1,25 +1,20 @@
 package com.matrix.mym.model;
 
-import java.util.Random;
+import android.content.Context;
 
-import android.os.AsyncTask;
-
-import com.matrix.mym.controller.interfaces.ShareMarketCallBacks;
+import com.matrix.mym.controller.db.MymDataBase;
 
 public class CompanyShare {
 	private long mId;
 	private String mName;
 	private float mPrice;
-	private float mLastPrice;
+	private float mLastPriceChange;
 
-	private ShareMarketCallBacks shareMarketCallBacks;
-	private boolean isPriceChanging = false;
-
-	public CompanyShare(long id, String name, float price, float lastPrice) {
+	public CompanyShare(long id, String name, float price, float lastPriceChange) {
 		mId = id;
 		mName = name;
 		mPrice = price;
-		mLastPrice = lastPrice;
+		mLastPriceChange = lastPriceChange;
 	}
 
 	public String getName() {
@@ -38,50 +33,19 @@ public class CompanyShare {
 		return mId;
 	}
 
-	public float getLastPrice() {
-		return mLastPrice;
+	public float getLastPriceChange() {
+		return mLastPriceChange;
 	}
 
-	public void registerShareMarjetCallBack(
-			ShareMarketCallBacks shareMarketCallBacks) {
-		this.shareMarketCallBacks = shareMarketCallBacks;
+	public void chnagePrice(Context context, float rand) {
+		mLastPriceChange = rand % (mPrice * 0.1f);
+		mPrice += mLastPriceChange;
+		MymDataBase.updatePriceAndLastPriceOfCompanyShare(context,
+				CompanyShare.this);
 	}
 
-	public void unRegisterShareMarjetCallBack() {
-		shareMarketCallBacks = null;
-	}
-
-	public void startChangePrice() {
-		new AsyncTask<Void, Void, Void>() {
-			protected void onPreExecute() {
-				if (shareMarketCallBacks != null)
-					shareMarketCallBacks.startedPriceChaning(getId());
-				isPriceChanging = true;
-			};
-
-			@Override
-			protected Void doInBackground(Void... params) {
-				Random random = new Random(System.currentTimeMillis());
-				while (isPriceChanging) {
-				}
-				return null;
-			}
-
-			protected void onPostExecute(Void result) {
-				if (shareMarketCallBacks != null)
-					shareMarketCallBacks.stoppedPriceChaning(mId);
-			};
-
-			@Override
-			protected void onProgressUpdate(Void... values) {
-				if (shareMarketCallBacks != null)
-					shareMarketCallBacks.priceChanged(mId);
-			};
-
-		}.execute();
-	}
-
-	public void stopChangePrice() {
-		isPriceChanging = false;
+	@Override
+	public String toString() {
+		return getLastPriceChange() + "#" + getName();
 	}
 }

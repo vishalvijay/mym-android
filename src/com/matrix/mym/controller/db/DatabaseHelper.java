@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(CompanyShareDB.CREATE_TABLE_NOTIFICATIONS);
+		CompanyShareDB.setUpTable(db);
 	}
 
 	@Override

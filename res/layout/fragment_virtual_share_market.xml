@@ -5,10 +5,15 @@
     android:background="@drawable/main_background"
     tools:context="com.matrix.mym.view.fragments.VirtualShareMarketFragment" >
 
-    <TextView
+    <ListView
+        android:id="@+id/lvCompanyShare"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ProgressBar
+        android:id="@+id/pbCompanyShareLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/virtualsharemarket" />
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
