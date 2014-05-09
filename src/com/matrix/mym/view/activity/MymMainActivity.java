@@ -7,8 +7,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.Window;
 
 import com.matrix.mym.R;
+import com.matrix.mym.controller.db.MymDataBase;
+import com.matrix.mym.model.User;
+import com.matrix.mym.utils.Utils;
 import com.matrix.mym.view.fragments.AboutFragment;
 import com.matrix.mym.view.fragments.HelpFragment;
 import com.matrix.mym.view.fragments.LeaderBordFragment;
@@ -18,9 +22,11 @@ import com.matrix.mym.view.fragments.VirtualShareMarketFragment;
 
 public class MymMainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-	private NavigationDrawerFragment mNavigationDrawerFragment;
+	protected static final String TAG = "MymMainActivity";
+	public static final String USER = "user";
 	public static final String FRAGMENT_TITLE = "title";
+	private NavigationDrawerFragment mNavigationDrawerFragment;
+	private User mUser;
 
 	/**
 	 * Used to store the last screen title. For use in
@@ -31,13 +37,20 @@ public class MymMainActivity extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		supportRequestWindowFeature(Window.FEATURE_PROGRESS);
+		supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.activity_mym_main);
+
+		if (savedInstanceState == null)
+			mUser = getIntent().getParcelableExtra(USER);
+		else
+			mUser = savedInstanceState.getParcelable(USER);
+
+		Utils.showErrorToast(getApplicationContext(), mUser.isLoaded() + "");
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
-
-		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 	}
@@ -86,5 +99,21 @@ public class MymMainActivity extends ActionBarActivity implements
 			return true;
 		}
 		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		MymDataBase.closeDb();
+	}
+
+	public User getUser() {
+		return mUser;
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putParcelable(USER, mUser);
+		super.onSaveInstanceState(outState);
 	}
 }

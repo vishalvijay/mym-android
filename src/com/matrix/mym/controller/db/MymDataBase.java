@@ -3,7 +3,9 @@ package com.matrix.mym.controller.db;
 import java.util.ArrayList;
 
 import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
+import com.matrix.mym.controller.interfaces.UserShareLoadedCallBack;
 import com.matrix.mym.model.CompanyShare;
+import com.matrix.mym.model.UserShare;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -17,10 +19,12 @@ public class MymDataBase {
 	private static MymDataBase singltonObject;
 	private DatabaseHelper mDatabaseHelper;
 	private CompanyShareDB mCompanyShareDB;
+	private UserSharesDB mUserShareDB;
 
 	private MymDataBase(Context context) {
 		mDatabaseHelper = new DatabaseHelper(context);
 		mCompanyShareDB = new CompanyShareDB(mDatabaseHelper);
+		mUserShareDB = new UserSharesDB(mDatabaseHelper);
 	}
 
 	private static MymDataBase getInstance(Context context) {
@@ -42,6 +46,10 @@ public class MymDataBase {
 
 	public CompanyShareDB getCompanyShareDB() {
 		return mCompanyShareDB;
+	}
+
+	public UserSharesDB getUserSharesDB() {
+		return mUserShareDB;
 	}
 
 	public static void getAllCompanyShares(final Context context,
@@ -66,5 +74,30 @@ public class MymDataBase {
 			Context context, CompanyShare companyShare) {
 		return getInstance(context).getCompanyShareDB()
 				.updatePriceAndLastPrice(companyShare);
+	}
+
+	public static long saveUserShare(Context context, UserShare userShare) {
+		return getInstance(context).getUserSharesDB().saveUserShare(userShare);
+	}
+
+	public static UserShare getUserShare(Context context, long companyShareId) {
+		return getInstance(context).getUserSharesDB().getUserShare(
+				companyShareId);
+	}
+
+	public static void getAllUserShares(final Context context,
+			final UserShareLoadedCallBack callBack) {
+		new AsyncTask<Void, Void, ArrayList<UserShare>>() {
+
+			@Override
+			protected ArrayList<UserShare> doInBackground(Void... params) {
+				return getInstance(context).getUserSharesDB().getUserShares();
+			}
+
+			protected void onPostExecute(java.util.ArrayList<UserShare> result) {
+				callBack.onComplete(result);
+			};
+
+		}.execute();
 	}
 }

@@ -16,6 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		CompanyShareDB.setUpTable(db);
+		UserSharesDB.setUpTable(db);
 	}
 
 	@Override
@@ -25,11 +26,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL(getDropTableQuery(CompanyShareDB.TABLE_COMPANY_SHARE_TABLE));
+		dropTable(db, CompanyShareDB.TABLE_TABLE);
+		dropTable(db, UserSharesDB.TABLE_NAME);
 		onCreate(db);
 	}
 
-	private String getDropTableQuery(String tableName) {
-		return "DROP TABLE IF EXISTS " + tableName + ";";
+	private void dropTable(SQLiteDatabase db, String tableName) {
+		db.execSQL("DROP TABLE IF EXISTS " + tableName + ";");
 	}
 }

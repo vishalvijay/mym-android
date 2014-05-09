@@ -10,24 +10,16 @@ import android.database.sqlite.SQLiteDatabase;
 import com.matrix.mym.model.CompanyShare;
 
 public class CompanyShareDB {
-	public static final String TABLE_COMPANY_SHARE_TABLE = "company_share";
-	private static final String COL_ID = "_id";
-	private static final String COL_NAME = "name";
-	private static final String COL_PRICE = "price";
-	private static final String COL_LAST_PRICE_CHANGE = "last_price_change";
-	public static final String CREATE_TABLE_NOTIFICATIONS = "CREATE TABLE IF NOT EXISTS "
-			+ TABLE_COMPANY_SHARE_TABLE
-			+ "("
-			+ COL_ID
-			+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
-			+ COL_NAME
-			+ " VARCHAR(128) NOT NULL, "
-			+ COL_PRICE
-			+ " REAL, "
+	public static final String TABLE_TABLE = "company_share";
+	public static final String COL_ID = "_id";
+	public static final String COL_NAME = "name";
+	public static final String COL_PRICE = "price";
+	public static final String COL_LAST_PRICE_CHANGE = "last_price_change";
+	public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "
+			+ TABLE_TABLE + "(" + COL_ID
+			+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME
+			+ " VARCHAR(128) NOT NULL, " + COL_PRICE + " REAL, "
 			+ COL_LAST_PRICE_CHANGE + " REAL);";
-
-	public static final String DROP_TABLE_RESULT_USN_HISTORY = "DROP TABLE IF EXISTS "
-			+ TABLE_COMPANY_SHARE_TABLE + ";";
 
 	private DatabaseHelper mDatabaseHelper;
 
@@ -44,8 +36,8 @@ public class CompanyShareDB {
 			contentValues.put(COL_LAST_PRICE_CHANGE,
 					companyShare.getLastPriceChange());
 			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
-			result = db.update(TABLE_COMPANY_SHARE_TABLE, contentValues, COL_ID
-					+ "=? ", new String[] { companyShare.getId() + "" });
+			result = db.update(TABLE_TABLE, contentValues, COL_ID + "=? ",
+					new String[] { companyShare.getId() + "" });
 			db.close();
 		} catch (SQLException e) {
 			result = 0;
@@ -57,9 +49,9 @@ public class CompanyShareDB {
 		ArrayList<CompanyShare> companyShares = new ArrayList<CompanyShare>();
 		try {
 			SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-			Cursor cursor = db.query(TABLE_COMPANY_SHARE_TABLE, new String[] {
-					COL_ID, COL_NAME, COL_PRICE, COL_LAST_PRICE_CHANGE }, null,
-					null, null, null, COL_ID);
+			Cursor cursor = db.query(TABLE_TABLE, new String[] { COL_ID,
+					COL_NAME, COL_PRICE, COL_LAST_PRICE_CHANGE }, null, null,
+					null, null, COL_ID);
 			while (cursor.moveToNext()) {
 				long id = cursor.getLong(cursor.getColumnIndex(COL_ID));
 				String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
@@ -77,7 +69,7 @@ public class CompanyShareDB {
 	}
 
 	public static void setUpTable(SQLiteDatabase db) {
-		db.execSQL(CompanyShareDB.CREATE_TABLE_NOTIFICATIONS);
+		db.execSQL(CompanyShareDB.CREATE_TABLE);
 		inserCompanyShare(db, "Axis Bank", 100, 0);
 		inserCompanyShare(db, "Cipla", 50, 0);
 		inserCompanyShare(db, "Bharat Heavy Electricals", 37.50f, 0);
@@ -117,6 +109,6 @@ public class CompanyShareDB {
 		contentValues.put(COL_NAME, name);
 		contentValues.put(COL_PRICE, price);
 		contentValues.put(COL_LAST_PRICE_CHANGE, lastPriceChange);
-		db.insert(TABLE_COMPANY_SHARE_TABLE, COL_ID, contentValues);
+		db.insert(TABLE_TABLE, COL_ID, contentValues);
 	}
 }
