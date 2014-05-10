@@ -70,10 +70,16 @@ public class MymDataBase {
 		}.execute();
 	}
 
-	public static boolean updatePriceAndLastPriceOfCompanyShare(
-			Context context, CompanyShare companyShare) {
-		return getInstance(context).getCompanyShareDB()
-				.updatePriceAndLastPrice(companyShare);
+	public static boolean updatePriceOfCompanyShare(Context context,
+			CompanyShare companyShare) {
+		return getInstance(context).getCompanyShareDB().updatePrice(
+				companyShare);
+	}
+
+	public static boolean updateClosingPriceOfCompanyShare(Context context,
+			CompanyShare companyShare) {
+		return getInstance(context).getCompanyShareDB().updateClosingPrice(
+				companyShare);
 	}
 
 	public static long saveUserShare(Context context, UserShare userShare) {
@@ -94,7 +100,7 @@ public class MymDataBase {
 				return getInstance(context).getUserSharesDB().getUserShares();
 			}
 
-			protected void onPostExecute(java.util.ArrayList<UserShare> result) {
+			protected void onPostExecute(ArrayList<UserShare> result) {
 				callBack.onComplete(result);
 			};
 

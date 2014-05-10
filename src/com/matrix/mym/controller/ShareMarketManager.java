@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.matrix.mym.controller.db.MymDataBase;
 import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
 import com.matrix.mym.controller.interfaces.ShareMarkerServiceCallBacks;
 import com.matrix.mym.model.CompanyShare;
+import com.matrix.mym.utils.ThreadTask;
 
 public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 	protected static final int TIME_LIMIT = 5000;
@@ -33,7 +34,8 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 		if (mCompanyShares.size() == 0)
 			throw new RuntimeException(
 					"There should be atleast one CompanyShare in db");
-		new AsyncTask<Void, Void, Void>() {
+
+		new ThreadTask<Void, Void, Void>(new Handler()) {
 
 			protected void onPreExecute() {
 				isPriceChanging = true;
@@ -47,7 +49,7 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 							.nextInt((mCompanyShares.size() / 3) + 1); i++) {
 						CompanyShare companyShare = mCompanyShares.get(random
 								.nextInt(mCompanyShares.size()));
-						companyShare.changePrice(context, random.nextFloat());
+						companyShare.changePrice(context, random.nextDouble());
 					}
 					publishProgress();
 					try {

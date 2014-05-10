@@ -29,15 +29,15 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 			userShareLoadedCallBack.onComplete(mUserShares);
 	}
 
-	public float getMoney(Context context) {
+	public double getMoney(Context context) {
 		return Settings.getUserMoney(context);
 	}
 
-	public void setMoney(Context context, float money) {
+	public void setMoney(Context context, double money) {
 		Settings.setUserMoney(context, money);
 	}
 
-	public void updateMoney(Context context, float money) {
+	public void updateMoney(Context context, double money) {
 		money += Settings.getUserMoney(context);
 		Settings.setUserMoney(context, money);
 	}

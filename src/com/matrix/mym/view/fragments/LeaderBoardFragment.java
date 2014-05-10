@@ -7,16 +7,16 @@ import android.view.ViewGroup;
 
 import com.matrix.mym.R;
 
-public class LeaderBordFragment extends MymMainFragment {
+public class LeaderBoardFragment extends MymMainFragment {
 
-	public LeaderBordFragment() {
-		super(R.string.leader_bord);
+	public LeaderBoardFragment() {
+		super(R.string.leaderboard);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_leader_bord,
+		View rootView = inflater.inflate(R.layout.fragment_leaderboard,
 				container, false);
 		return rootView;
 	}

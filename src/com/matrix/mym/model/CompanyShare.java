@@ -7,16 +7,16 @@ import com.matrix.mym.controller.db.MymDataBase;
 public class CompanyShare {
 	private long mId;
 	private String mName;
-	private float mPrice;
-	private float mLastPrice;
+	private double mPrice;
+	private double mClosingPrice;
 	private String mIndustry;
 
-	public CompanyShare(long id, String name, float price, float lastPrice,
-			String industry) {
+	public CompanyShare(long id, String name, double price,
+			double closingPrice, String industry) {
 		mId = id;
 		mName = name;
 		mPrice = price;
-		mLastPrice = lastPrice;
+		mClosingPrice = closingPrice;
 		mIndustry = industry;
 	}
 
@@ -24,7 +24,7 @@ public class CompanyShare {
 		return mName;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return mPrice;
 	}
 
@@ -32,20 +32,18 @@ public class CompanyShare {
 		return mId;
 	}
 
-	public float getLastPriceChange() {
-		return mPrice - mLastPrice;
+	public double getLastPriceChange() {
+		return mPrice - mClosingPrice;
 	}
 
-	public float getLastPrice() {
-		return mLastPrice;
+	public double getClosingPrice() {
+		return mClosingPrice;
 	}
 
-	public void changePrice(Context context, float rand) {
-		float change = (rand % mPrice) * 0.1f;
-		mLastPrice = mPrice;
+	public void changePrice(Context context, double rand) {
+		double change = (rand % mPrice) * 0.1f;
 		mPrice += change;
-		MymDataBase.updatePriceAndLastPriceOfCompanyShare(context,
-				CompanyShare.this);
+		MymDataBase.updatePriceOfCompanyShare(context, this);
 	}
 
 	@Override
@@ -58,6 +56,11 @@ public class CompanyShare {
 	}
 
 	public boolean isPositiveChange() {
-		return mPrice >= mLastPrice;
+		return mPrice >= mClosingPrice;
+	}
+
+	public void saveClosingPrice(Context context) {
+		mClosingPrice = mPrice;
+		MymDataBase.updateClosingPriceOfCompanyShare(context, this);
 	}
 }

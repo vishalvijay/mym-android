@@ -14,13 +14,13 @@ public class CompanyShareDB {
 	public static final String COL_ID = "_id";
 	public static final String COL_NAME = "name";
 	public static final String COL_PRICE = "price";
-	public static final String COL_LAST_PRICE = "last_price";
+	public static final String COL_CLOSING_PRICE = "closing_price";
 	public static final String COL_INDUSTRY = "industry";
 	public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "
 			+ TABLE_TABLE + "(" + COL_ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME
 			+ " VARCHAR(128) NOT NULL, " + COL_PRICE + " REAL NOT NULL, "
-			+ COL_LAST_PRICE + " REAL NOT NULL, " + COL_INDUSTRY
+			+ COL_CLOSING_PRICE + " REAL NOT NULL, " + COL_INDUSTRY
 			+ " VARCHAR(128) NOT NULL);";
 
 	private DatabaseHelper mDatabaseHelper;
@@ -29,14 +29,27 @@ public class CompanyShareDB {
 		mDatabaseHelper = databaseHelper;
 	}
 
-	synchronized public boolean updatePriceAndLastPrice(
-			CompanyShare companyShare) {
+	synchronized public boolean updatePrice(CompanyShare companyShare) {
 		long result;
 		try {
 			ContentValues contentValues = new ContentValues();
 			contentValues.put(COL_PRICE, companyShare.getPrice());
+			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+			result = db.update(TABLE_TABLE, contentValues, COL_ID + "=? ",
+					new String[] { companyShare.getId() + "" });
+			db.close();
+		} catch (SQLException e) {
+			result = 0;
+		}
+		return result != 0;
+	}
+
+	synchronized public boolean updateClosingPrice(CompanyShare companyShare) {
+		long result;
+		try {
+			ContentValues contentValues = new ContentValues();
 			contentValues
-					.put(COL_LAST_PRICE, companyShare.getLastPriceChange());
+					.put(COL_CLOSING_PRICE, companyShare.getClosingPrice());
 			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 			result = db.update(TABLE_TABLE, contentValues, COL_ID + "=? ",
 					new String[] { companyShare.getId() + "" });
@@ -52,18 +65,19 @@ public class CompanyShareDB {
 		try {
 			SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
 			Cursor cursor = db.query(TABLE_TABLE, new String[] { COL_ID,
-					COL_NAME, COL_PRICE, COL_LAST_PRICE, COL_INDUSTRY }, null,
-					null, null, null, COL_ID);
+					COL_NAME, COL_PRICE, COL_CLOSING_PRICE, COL_INDUSTRY },
+					null, null, null, null, COL_ID);
 			while (cursor.moveToNext()) {
 				long id = cursor.getLong(cursor.getColumnIndex(COL_ID));
 				String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
-				float price = cursor.getFloat(cursor.getColumnIndex(COL_PRICE));
-				float lastPrice = cursor.getFloat(cursor
-						.getColumnIndex(COL_LAST_PRICE));
+				double price = cursor.getDouble(cursor
+						.getColumnIndex(COL_PRICE));
+				double closingPrice = cursor.getDouble(cursor
+						.getColumnIndex(COL_CLOSING_PRICE));
 				String industry = cursor.getString(cursor
 						.getColumnIndex(COL_INDUSTRY));
-				companyShares.add(new CompanyShare(id, name, price, lastPrice,
-						industry));
+				companyShares.add(new CompanyShare(id, name, price,
+						closingPrice, industry));
 			}
 			cursor.close();
 			db.close();
@@ -111,11 +125,11 @@ public class CompanyShareDB {
 	}
 
 	private static void inserCompanyShare(SQLiteDatabase db, String name,
-			float price, String industry) {
+			double price, String industry) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(COL_NAME, name);
 		contentValues.put(COL_PRICE, price);
-		contentValues.put(COL_LAST_PRICE, price);
+		contentValues.put(COL_CLOSING_PRICE, price);
 		contentValues.put(COL_INDUSTRY, industry);
 		db.insert(TABLE_TABLE, COL_ID, contentValues);
 	}

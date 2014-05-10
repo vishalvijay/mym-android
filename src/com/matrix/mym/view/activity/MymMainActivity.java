@@ -15,9 +15,10 @@ import com.matrix.mym.model.User;
 import com.matrix.mym.utils.Utils;
 import com.matrix.mym.view.fragments.AboutFragment;
 import com.matrix.mym.view.fragments.HelpFragment;
-import com.matrix.mym.view.fragments.LeaderBordFragment;
+import com.matrix.mym.view.fragments.LeaderBoardFragment;
 import com.matrix.mym.view.fragments.NavigationDrawerFragment;
 import com.matrix.mym.view.fragments.QuizFragment;
+import com.matrix.mym.view.fragments.StockStatusFragment;
 import com.matrix.mym.view.fragments.VirtualShareMarketFragment;
 
 public class MymMainActivity extends ActionBarActivity implements
@@ -66,12 +67,15 @@ public class MymMainActivity extends ActionBarActivity implements
 			fragment = new VirtualShareMarketFragment();
 			break;
 		case 2:
-			fragment = new LeaderBordFragment();
+			fragment = new StockStatusFragment();
 			break;
 		case 3:
-			fragment = new HelpFragment();
+			fragment = new LeaderBoardFragment();
 			break;
 		case 4:
+			fragment = new HelpFragment();
+			break;
+		case 5:
 			fragment = new AboutFragment();
 			break;
 		}

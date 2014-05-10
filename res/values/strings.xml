@@ -10,8 +10,9 @@
     <string name="quiz">Quiz</string>
     <string name="virtualsharemarket">Game</string>
     <string name="about">About</string>
-    <string name="leader_bord">Leader bord</string>
+    <string name="leaderboard">Leaderboard</string>
     <string name="help">Help</string>
+    <string name="stock_status">Stock status</string>
     <string name="developer">Team Matrix</string>
     <string name="version">Version : %s</string>
     <string name="feedback_mail_subject">Feedback of %s android app</string>

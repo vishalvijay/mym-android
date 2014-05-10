@@ -89,7 +89,10 @@ public class NavigationDrawerFragment extends Fragment {
 		navMenuItem = new NavMenuItem(getString(R.string.virtualsharemarket),
 				R.drawable.ic_action_gamepad);
 		navMenuItems.add(navMenuItem);
-		navMenuItem = new NavMenuItem(getString(R.string.leader_bord),
+		navMenuItem = new NavMenuItem(getString(R.string.stock_status),
+				R.drawable.ic_action_cast);
+		navMenuItems.add(navMenuItem);
+		navMenuItem = new NavMenuItem(getString(R.string.leaderboard),
 				R.drawable.ic_action_group);
 		navMenuItems.add(navMenuItem);
 		navMenuItem = new NavMenuItem(getString(R.string.help),
