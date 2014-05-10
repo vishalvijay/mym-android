@@ -9,12 +9,15 @@ public class CompanyShare {
 	private String mName;
 	private float mPrice;
 	private float mLastPriceChange;
+	private String mIndustry;
 
-	public CompanyShare(long id, String name, float price, float lastPriceChange) {
+	public CompanyShare(long id, String name, float price,
+			float lastPriceChange, String industry) {
 		mId = id;
 		mName = name;
 		mPrice = price;
 		mLastPriceChange = lastPriceChange;
+		mIndustry = industry;
 	}
 
 	public String getName() {
@@ -47,5 +50,9 @@ public class CompanyShare {
 	@Override
 	public String toString() {
 		return getLastPriceChange() + "#" + getName();
+	}
+
+	public String getmIndustry() {
+		return mIndustry;
 	}
 }

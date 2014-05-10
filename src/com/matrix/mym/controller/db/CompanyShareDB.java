@@ -15,11 +15,13 @@ public class CompanyShareDB {
 	public static final String COL_NAME = "name";
 	public static final String COL_PRICE = "price";
 	public static final String COL_LAST_PRICE_CHANGE = "last_price_change";
+	public static final String COL_INDUSTRY = "industry";
 	public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "
 			+ TABLE_TABLE + "(" + COL_ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME
-			+ " VARCHAR(128) NOT NULL, " + COL_PRICE + " REAL, "
-			+ COL_LAST_PRICE_CHANGE + " REAL);";
+			+ " VARCHAR(128) NOT NULL, " + COL_PRICE + " REAL NOT NULL, "
+			+ COL_LAST_PRICE_CHANGE + " REAL NOT NULL, " + COL_INDUSTRY
+			+ " VARCHAR(128) NOT NULL);";
 
 	private DatabaseHelper mDatabaseHelper;
 
@@ -58,8 +60,10 @@ public class CompanyShareDB {
 				float price = cursor.getFloat(cursor.getColumnIndex(COL_PRICE));
 				float lastPriceChange = cursor.getFloat(cursor
 						.getColumnIndex(COL_LAST_PRICE_CHANGE));
+				String industry = cursor.getString(cursor
+						.getColumnIndex(COL_INDUSTRY));
 				companyShares.add(new CompanyShare(id, name, price,
-						lastPriceChange));
+						lastPriceChange, industry));
 			}
 			cursor.close();
 			db.close();
@@ -70,45 +74,50 @@ public class CompanyShareDB {
 
 	public static void setUpTable(SQLiteDatabase db) {
 		db.execSQL(CompanyShareDB.CREATE_TABLE);
-		inserCompanyShare(db, "Axis Bank", 100, 0);
-		inserCompanyShare(db, "Cipla", 50, 0);
-		inserCompanyShare(db, "Bharat Heavy Electricals", 37.50f, 0);
-		inserCompanyShare(db, "State Bank Of India", 536, 0);
-		inserCompanyShare(db, "HDFC Bank", 300, 0);
-		inserCompanyShare(db, "Hero Motocorp", 200, 0);
-		inserCompanyShare(db, "Infosys", 995.5f, 0);
-		inserCompanyShare(db, "Oil and Natural Gas Corporation", 57, 0);
-		inserCompanyShare(db, "Reliance Industries", 122, 0);
-		inserCompanyShare(db, "Tata Power", 512, 0);
-		inserCompanyShare(db, "Hindalco Industries", 700, 0);
-		inserCompanyShare(db, "Tata Steel", 30, 0);
-		inserCompanyShare(db, "Larsen & Toubro", 233, 0);
-		inserCompanyShare(db, "Mahindra & Mahindra", 55, 0);
-		inserCompanyShare(db, "Tata Motors", 654, 0);
-		inserCompanyShare(db, "Hindustan Unilever", 111, 0);
-		inserCompanyShare(db, "ITC", 234, 0);
-		inserCompanyShare(db, "Sesa Sterlite Ltd", 675, 0);
-		inserCompanyShare(db, "Wipro", 93, 0);
-		inserCompanyShare(db, "Sun Pharmaceutical", 56, 0);
-		inserCompanyShare(db, "GAIL", 90, 0);
-		inserCompanyShare(db, "ICICI Bank", 100, 0);
+		inserCompanyShare(db, "Axis Bank", 100, 0, "Banking");
+		inserCompanyShare(db, "Cipla", 50, 0, "Pharmaceuticals");
+		inserCompanyShare(db, "Bharat Heavy Electricals", 37.50f, 0,
+				"Electrical equipment");
+		inserCompanyShare(db, "State Bank Of India", 536, 0, "Banking");
+		inserCompanyShare(db, "HDFC Bank", 300, 0, "Banking");
+		inserCompanyShare(db, "Hero Motocorp", 200, 0, "Automotive");
+		inserCompanyShare(db, "Infosys", 995.5f, 0, "Information Technology");
+		inserCompanyShare(db, "Oil and Natural Gas Corporation", 57, 0,
+				"Oil and gas");
+		inserCompanyShare(db, "Reliance Industries", 122, 0, "Oil and gas");
+		inserCompanyShare(db, "Tata Power", 512, 0, "Power");
+		inserCompanyShare(db, "Hindalco Industries", 700, 0,
+				"Metals and Mining");
+		inserCompanyShare(db, "Tata Steel", 30, 0, "Steel");
+		inserCompanyShare(db, "Larsen & Toubro", 233, 0, "Conglomerate");
+		inserCompanyShare(db, "Mahindra & Mahindra", 55, 0, "Automotive");
+		inserCompanyShare(db, "Tata Motors", 654, 0, "Automotive");
+		inserCompanyShare(db, "Hindustan Unilever", 111, 0, "Consumer goods");
+		inserCompanyShare(db, "ITC", 234, 0, "Conglomerate");
+		inserCompanyShare(db, "Sesa Sterlite Ltd", 675, 0, "Iron and Steel");
+		inserCompanyShare(db, "Wipro", 93, 0, "Information Technology");
+		inserCompanyShare(db, "Sun Pharmaceutical", 56, 0, "Pharmaceuticals");
+		inserCompanyShare(db, "GAIL", 90, 0, "Oil and gas");
+		inserCompanyShare(db, "ICICI Bank", 100, 0, "Banking");
 		inserCompanyShare(db, "Housing Development Fianance Corporation	", 33,
-				0);
-		inserCompanyShare(db, "Bharti Airtel", 45, 0);
-		inserCompanyShare(db, "Maruti Suzuki", 54, 0);
-		inserCompanyShare(db, "Tata Consultancy Services", 23, 0);
-		inserCompanyShare(db, "NTPC", 56, 0);
-		inserCompanyShare(db, "Dr. Reddy's", 865, 0);
-		inserCompanyShare(db, "Bajaj Auto", 432, 0);
-		inserCompanyShare(db, "Coal India", 321, 0);
+				0, "Housing Finance");
+		inserCompanyShare(db, "Bharti Airtel", 45, 0, "Telecommunication");
+		inserCompanyShare(db, "Maruti Suzuki", 54, 0, "Automotive");
+		inserCompanyShare(db, "Tata Consultancy Services", 23, 0,
+				"Information Technology");
+		inserCompanyShare(db, "NTPC", 56, 0, "Power");
+		inserCompanyShare(db, "Dr. Reddy's", 865, 0, "Pharmaceuticals");
+		inserCompanyShare(db, "Bajaj Auto", 432, 0, "Automotive");
+		inserCompanyShare(db, "Coal India", 321, 0, "Metals and Mining");
 	}
 
 	private static void inserCompanyShare(SQLiteDatabase db, String name,
-			float price, float lastPriceChange) {
+			float price, float lastPriceChange, String industry) {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(COL_NAME, name);
 		contentValues.put(COL_PRICE, price);
 		contentValues.put(COL_LAST_PRICE_CHANGE, lastPriceChange);
+		contentValues.put(COL_INDUSTRY, industry);
 		db.insert(TABLE_TABLE, COL_ID, contentValues);
 	}
 }
