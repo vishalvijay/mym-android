@@ -30,6 +30,9 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 	public void startShareMarket() {
 		if (mCompanyShares == null)
 			throw new IllegalStateException("CompanyShare not yet loaded");
+		if (mCompanyShares.size() == 0)
+			throw new RuntimeException(
+					"There should be atleast one CompanyShare in db");
 		new AsyncTask<Void, Void, Void>() {
 
 			protected void onPreExecute() {
@@ -41,10 +44,10 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 				Random random = new Random(System.currentTimeMillis());
 				while (isPriceChanging) {
 					for (int i = 0; i < random
-							.nextInt((mCompanyShares.size() + 1) / 3); i++) {
+							.nextInt((mCompanyShares.size() / 3) + 1); i++) {
 						CompanyShare companyShare = mCompanyShares.get(random
-								.nextInt(mCompanyShares.size() - 1));
-						companyShare.chnagePrice(context, random.nextFloat());
+								.nextInt(mCompanyShares.size()));
+						companyShare.changePrice(context, random.nextFloat());
 					}
 					publishProgress();
 					try {

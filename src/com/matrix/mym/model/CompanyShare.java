@@ -8,15 +8,15 @@ public class CompanyShare {
 	private long mId;
 	private String mName;
 	private float mPrice;
-	private float mLastPriceChange;
+	private float mLastPrice;
 	private String mIndustry;
 
-	public CompanyShare(long id, String name, float price,
-			float lastPriceChange, String industry) {
+	public CompanyShare(long id, String name, float price, float lastPrice,
+			String industry) {
 		mId = id;
 		mName = name;
 		mPrice = price;
-		mLastPriceChange = lastPriceChange;
+		mLastPrice = lastPrice;
 		mIndustry = industry;
 	}
 
@@ -28,21 +28,22 @@ public class CompanyShare {
 		return mPrice;
 	}
 
-	public void setCurrentPrice(float price) {
-		mPrice = price;
-	}
-
 	public long getId() {
 		return mId;
 	}
 
 	public float getLastPriceChange() {
-		return mLastPriceChange;
+		return mPrice - mLastPrice;
 	}
 
-	public void chnagePrice(Context context, float rand) {
-		mLastPriceChange = rand % (mPrice * 0.1f);
-		mPrice += mLastPriceChange;
+	public float getLastPrice() {
+		return mLastPrice;
+	}
+
+	public void changePrice(Context context, float rand) {
+		float change = (rand % mPrice) * 0.1f;
+		mLastPrice = mPrice;
+		mPrice += change;
 		MymDataBase.updatePriceAndLastPriceOfCompanyShare(context,
 				CompanyShare.this);
 	}
@@ -52,7 +53,11 @@ public class CompanyShare {
 		return getLastPriceChange() + "#" + getName();
 	}
 
-	public String getmIndustry() {
+	public String getIndustry() {
 		return mIndustry;
+	}
+
+	public boolean isPositiveChange() {
+		return mPrice >= mLastPrice;
 	}
 }

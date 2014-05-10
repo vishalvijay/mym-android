@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.matrix.mym.R;
+import com.matrix.mym.controller.adapter.CompanyShareAdapter;
 import com.matrix.mym.controller.interfaces.ShareMarkerServiceCallBacks;
 import com.matrix.mym.controller.service.ShareMarketService;
 import com.matrix.mym.model.CompanyShare;
@@ -70,8 +71,7 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 
 	@Override
 	public void onCompanyShareLoaded() {
-		adapter = new ArrayAdapter<CompanyShare>(getActivity(),
-				android.R.layout.simple_list_item_1,
+		adapter = new CompanyShareAdapter(getActivity(),
 				shareMarketService.getAllCompanyShares());
 		companyShareListView.setAdapter(adapter);
 		companyShareLoadingProgressBar.setVisibility(View.GONE);
