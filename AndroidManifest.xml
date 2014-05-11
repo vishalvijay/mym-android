@@ -34,6 +34,9 @@
             android:icon="@drawable/ic_launcher"
             android:label="@string/virtual_share_market" >
         </service>
+
+        <receiver android:name="com.matrix.mym.controller.receivers.ShareMarketTimeUpBroadcastReceiver" />
+        <receiver android:name="com.matrix.mym.controller.receivers.ShareMarketReminderBroadcastReceiver" />
     </application>
 
 </manifest>

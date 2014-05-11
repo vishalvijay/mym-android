@@ -8,7 +8,7 @@ import android.os.Handler;
 
 import com.matrix.mym.controller.db.MymDataBase;
 import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
-import com.matrix.mym.controller.interfaces.ShareMarkerServiceCallBacks;
+import com.matrix.mym.controller.interfaces.ShareMarketServiceCallBacks;
 import com.matrix.mym.model.CompanyShare;
 import com.matrix.mym.utils.ThreadTask;
 
@@ -17,14 +17,14 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 	protected static final String TAG = "ShareMarketManager";
 	private ArrayList<CompanyShare> mCompanyShares;
 	private Context context;
-	private ShareMarkerServiceCallBacks shareMarkerServiceCallBacks;
+	private ShareMarketServiceCallBacks shareMarketServiceCallBacks;
 	private boolean isLoaded = false;
 	private boolean isPriceChanging = false;
 
 	public ShareMarketManager(Context context,
-			ShareMarkerServiceCallBacks shareMarkerServiceCallBacks) {
+			ShareMarketServiceCallBacks shareMarkerServiceCallBacks) {
 		this.context = context;
-		this.shareMarkerServiceCallBacks = shareMarkerServiceCallBacks;
+		this.shareMarketServiceCallBacks = shareMarkerServiceCallBacks;
 		MymDataBase.getAllCompanyShares(this.context, this);
 	}
 
@@ -62,21 +62,21 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 
 			@Override
 			protected void onProgressUpdate(Void... values) {
-				shareMarkerServiceCallBacks.onCompanyShareUpdated();
+				shareMarketServiceCallBacks.onCompanyShareUpdated();
 			};
 
 		}.execute();
 	}
 
 	public void stopShareMarket() {
-		isPriceChanging = true;
+		isPriceChanging = false;
 	}
 
 	@Override
 	public void onComplete(ArrayList<CompanyShare> companyShares) {
 		mCompanyShares = companyShares;
 		isLoaded = true;
-		shareMarkerServiceCallBacks.onCompanyShareLoaded();
+		shareMarketServiceCallBacks.onCompanyShareLoaded();
 	}
 
 	public ArrayList<CompanyShare> getAllCompanyShares() {

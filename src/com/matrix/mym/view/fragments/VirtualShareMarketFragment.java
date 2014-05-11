@@ -1,5 +1,6 @@
 package com.matrix.mym.view.fragments;
 
+import java.util.Calendar;
 import java.util.List;
 
 import android.app.ActivityManager;
@@ -9,29 +10,42 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.matrix.mym.R;
 import com.matrix.mym.controller.adapter.CompanyShareAdapter;
-import com.matrix.mym.controller.interfaces.ShareMarkerServiceCallBacks;
+import com.matrix.mym.controller.interfaces.ShareMarketServiceCallBacks;
+import com.matrix.mym.controller.receivers.ShareMarketReminderBroadcastReceiver;
+import com.matrix.mym.controller.receivers.ShareMarketTimeUpBroadcastReceiver;
 import com.matrix.mym.controller.service.ShareMarketService;
-import com.matrix.mym.model.CompanyShare;
 import com.matrix.mym.utils.Constance;
+import com.matrix.mym.utils.Settings;
+import com.matrix.mym.utils.TimeCounter;
+import com.matrix.mym.utils.Utils;
+import com.matrix.mym.view.activity.MymMainActivity;
 
 public class VirtualShareMarketFragment extends MymMainFragment implements
-		ShareMarkerServiceCallBacks {
+		ShareMarketServiceCallBacks, OnClickListener {
 
 	protected static final String TAG = "VirtualShareMarketFragment";
 	private ListView companyShareListView;
 	private ProgressBar companyShareLoadingProgressBar;
+	private TextView timerTextView, balanceTextView, netTextView,
+			marketStatusTextView;
+	private RelativeLayout marketRelativeLayout, notStartedRelativeLayout;
 	private ShareMarketService shareMarketService;
-	private ArrayAdapter<CompanyShare> adapter;
+	private CompanyShareAdapter adapter;
+	private MymMainActivity activity;
+	private boolean isUnbindeService = false;
 
 	private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -44,10 +58,12 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 		}
 
 		public void onServiceDisconnected(ComponentName className) {
+			onShareMarketStop();
 			shareMarketService.unRegisterCallbacks();
 			shareMarketService = null;
 		}
 	};
+	private CountDownTimer timeCounter;
 
 	public VirtualShareMarketFragment() {
 		super(R.string.virtualsharemarket);
@@ -59,6 +75,7 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 		View rootView = inflater.inflate(
 				R.layout.fragment_virtual_share_market, container, false);
 		initViews(rootView);
+		activity = (MymMainActivity) getActivity();
 		return rootView;
 	}
 
@@ -67,10 +84,23 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 				.findViewById(R.id.lvCompanyShare);
 		companyShareLoadingProgressBar = (ProgressBar) rootView
 				.findViewById(R.id.pbCompanyShareLoading);
+		timerTextView = (TextView) rootView
+				.findViewById(R.id.tvShareMarketTimer);
+		balanceTextView = (TextView) rootView.findViewById(R.id.tvBalance);
+		netTextView = (TextView) rootView.findViewById(R.id.tvNet);
+		marketStatusTextView = (TextView) rootView
+				.findViewById(R.id.tvShareMarketStatus);
+		rootView.findViewById(R.id.btStartMarket).setOnClickListener(this);
+		marketRelativeLayout = (RelativeLayout) rootView
+				.findViewById(R.id.rlMarket);
+		notStartedRelativeLayout = (RelativeLayout) rootView
+				.findViewById(R.id.rlMarketNotStarted);
 	}
 
 	@Override
 	public void onCompanyShareLoaded() {
+		if (!isAdded())
+			return;
 		adapter = new CompanyShareAdapter(getActivity(),
 				shareMarketService.getAllCompanyShares());
 		companyShareListView.setAdapter(adapter);
@@ -79,22 +109,52 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 
 	@Override
 	public void onCompanyShareUpdated() {
+		if (!isAdded())
+			return;
 		adapter.notifyDataSetChanged();
+	}
+
+	public void onShareMarketStop() {
+		if (!isAdded())
+			return;
+		if (timeCounter != null) {
+			timeCounter.onFinish();
+			timeCounter.cancel();
+		}
+		Utils.showInfoToast(getActivity(), R.string.time_up);
+		reopenIt();
+	}
+
+	private void reopenIt() {
+		activity.onNavigationDrawerItemSelected(1);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		Intent bindIntent = new Intent(getActivity(), ShareMarketService.class);
-		if (isShareMarketServiceRunning() == false)
-			getActivity().startService(bindIntent);
-		getActivity().bindService(bindIntent, mConnection, 0);
+		startMarketSerive();
+	}
+
+	private void startMarketSerive() {
+		if (Settings.isShareMarketStarted(getActivity())) {
+			Intent bindIntent = new Intent(getActivity(),
+					ShareMarketService.class);
+			if (isShareMarketServiceRunning() == false)
+				getActivity().startService(bindIntent);
+			isUnbindeService = getActivity().bindService(bindIntent,
+					mConnection, 0);
+			if (timeCounter != null)
+				timeCounter.start();
+		}
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		getActivity().unbindService(mConnection);
+		if (isUnbindeService)
+			getActivity().unbindService(mConnection);
+		if (timeCounter != null)
+			timeCounter.cancel();
 	}
 
 	public boolean isShareMarketServiceRunning() {
@@ -111,5 +171,74 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		if (Settings.isShareMarketStarted(getActivity()))
+			doShareMarketStarted();
+		else
+			doShareMarketNotStarted();
+	}
+
+	private void doShareMarketStarted() {
+		companyShareLoadingProgressBar.setVisibility(View.VISIBLE);
+		notStartedRelativeLayout.setVisibility(View.GONE);
+		marketRelativeLayout.setVisibility(View.VISIBLE);
+		updateBalances();
+		timerTextView.setVisibility(View.VISIBLE);
+		Calendar calendar = Settings.getMarketStartedTime(getActivity());
+		timeCounter = new TimeCounter(timerTextView, calendar);
+		marketStatusTextView.setText(getString(R.string.market_will_close_at,
+				Utils.getHumanReadableString(Settings
+						.getMarketStartedTime(getActivity()))));
+	}
+
+	private void updateBalances() {
+		balanceTextView.setText(getBalance());
+		netTextView.setText(getNetBalance());
+	}
+
+	private void doShareMarketNotStarted() {
+		notStartedRelativeLayout.setVisibility(View.VISIBLE);
+		marketRelativeLayout.setVisibility(View.GONE);
+		updateBalances();
+		timerTextView.setVisibility(View.INVISIBLE);
+		Calendar calendar = Settings.getMarketStartedTime(getActivity());
+		if (Utils.isValidCalender(calendar))
+			marketStatusTextView.setText(getString(R.string.market_closed_at,
+					Utils.getHumanReadableString(calendar)));
+		else
+			marketStatusTextView.setText(R.string.market_never_started);
+	}
+
+	private String getNetBalance() {
+		String rsString = getString(
+				R.string.money,
+				Utils.roundAndGetString(activity.getUser().getNetBalance(
+						getActivity())));
+		return getString(R.string.net_balance, rsString);
+	}
+
+	private String getBalance() {
+		String rsString = getString(
+				R.string.money,
+				Utils.roundAndGetString(activity.getUser().getAccountBalance(
+						getActivity())));
+		return getString(R.string.balance, rsString);
+	}
+
+	@Override
+	public void onClick(View v) {
+		startMarket();
+	}
+
+	private void startMarket() {
+		Settings.setMarketStartedTime(getActivity(), Calendar.getInstance());
+		Settings.setShareMarketStartedStatus(getActivity(), true);
+		ShareMarketTimeUpBroadcastReceiver.register(getActivity());
+		ShareMarketReminderBroadcastReceiver.register(getActivity());
+		reopenIt();
 	}
 }

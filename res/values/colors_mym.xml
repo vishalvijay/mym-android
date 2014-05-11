@@ -13,5 +13,6 @@
     <color name="share_price_color">#05abc4</color>
     <color name="share_positive">#27ae60</color>
     <color name="share_negative">#c0392b</color>
+    <color name="status">#d74141</color>
 
 </resources>

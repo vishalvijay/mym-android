@@ -8,21 +8,23 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.matrix.mym.controller.ShareMarketManager;
-import com.matrix.mym.controller.interfaces.ShareMarkerServiceCallBacks;
+import com.matrix.mym.controller.db.MymDataBase;
+import com.matrix.mym.controller.interfaces.ShareMarketServiceCallBacks;
 import com.matrix.mym.model.CompanyShare;
+import com.matrix.mym.utils.Settings;
 
 public class ShareMarketService extends Service implements
-		ShareMarkerServiceCallBacks {
+		ShareMarketServiceCallBacks {
 	protected static final String TAG = "ShareMarketService";
 	private final ShareMarketServiceBinder mBinder = new ShareMarketServiceBinder();
 	private ShareMarketManager mShareMarketManager;
-	private ShareMarkerServiceCallBacks shareMarkerServiceCallBacks;
+	private ShareMarketServiceCallBacks shareMarketServiceCallBacks;
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		mShareMarketManager = new ShareMarketManager(getApplicationContext(),
 				this);
-		return Service.START_NOT_STICKY;
+		return Service.START_STICKY;
 	}
 
 	@Override
@@ -38,15 +40,15 @@ public class ShareMarketService extends Service implements
 
 	@Override
 	public void onCompanyShareLoaded() {
-		if (shareMarkerServiceCallBacks != null)
-			shareMarkerServiceCallBacks.onCompanyShareLoaded();
+		if (shareMarketServiceCallBacks != null)
+			shareMarketServiceCallBacks.onCompanyShareLoaded();
 		mShareMarketManager.startShareMarket();
 	}
 
 	@Override
 	public void onCompanyShareUpdated() {
-		if (shareMarkerServiceCallBacks != null)
-			shareMarkerServiceCallBacks.onCompanyShareUpdated();
+		if (shareMarketServiceCallBacks != null)
+			shareMarketServiceCallBacks.onCompanyShareUpdated();
 	}
 
 	public ArrayList<CompanyShare> getAllCompanyShares() {
@@ -54,18 +56,20 @@ public class ShareMarketService extends Service implements
 	}
 
 	public void registerCallbacks(
-			ShareMarkerServiceCallBacks shareMarkerServiceCallBacks) {
-		this.shareMarkerServiceCallBacks = shareMarkerServiceCallBacks;
+			ShareMarketServiceCallBacks shareMarkerServiceCallBacks) {
+		this.shareMarketServiceCallBacks = shareMarkerServiceCallBacks;
 	}
 
 	public void unRegisterCallbacks() {
-		this.shareMarkerServiceCallBacks = null;
+		shareMarketServiceCallBacks = null;
 	}
 
 	@Override
 	public void onDestroy() {
 		if (mShareMarketManager != null)
 			mShareMarketManager.stopShareMarket();
+		MymDataBase.closeDb();
+		Settings.setShareMarketStartedStatus(getApplicationContext(), false);
 		super.onDestroy();
 	}
 
@@ -73,5 +77,4 @@ public class ShareMarketService extends Service implements
 		if (mShareMarketManager.isLoaded())
 			onCompanyShareLoaded();
 	}
-
 }

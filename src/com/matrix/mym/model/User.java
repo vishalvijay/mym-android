@@ -29,15 +29,15 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 			userShareLoadedCallBack.onComplete(mUserShares);
 	}
 
-	public double getMoney(Context context) {
+	public double getAccountBalance(Context context) {
 		return Settings.getUserMoney(context);
 	}
 
-	public void setMoney(Context context, double money) {
+	public void setAccountBalance(Context context, double money) {
 		Settings.setUserMoney(context, money);
 	}
 
-	public void updateMoney(Context context, double money) {
+	public void updateAccountBalance(Context context, double money) {
 		money += Settings.getUserMoney(context);
 		Settings.setUserMoney(context, money);
 	}
@@ -84,4 +84,8 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 			return new User[size];
 		}
 	};
+
+	public double getNetBalance(Context context) {
+		return 0;
+	}
 }

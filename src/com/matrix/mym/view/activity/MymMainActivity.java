@@ -12,7 +12,6 @@ import android.view.Window;
 import com.matrix.mym.R;
 import com.matrix.mym.controller.db.MymDataBase;
 import com.matrix.mym.model.User;
-import com.matrix.mym.utils.Utils;
 import com.matrix.mym.view.fragments.AboutFragment;
 import com.matrix.mym.view.fragments.HelpFragment;
 import com.matrix.mym.view.fragments.LeaderBoardFragment;
@@ -41,14 +40,10 @@ public class MymMainActivity extends ActionBarActivity implements
 		supportRequestWindowFeature(Window.FEATURE_PROGRESS);
 		supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.activity_mym_main);
-
 		if (savedInstanceState == null)
 			mUser = getIntent().getParcelableExtra(USER);
 		else
 			mUser = savedInstanceState.getParcelable(USER);
-
-		Utils.showErrorToast(getApplicationContext(), mUser.isLoaded() + "");
-
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();

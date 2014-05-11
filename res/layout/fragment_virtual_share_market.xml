@@ -1,20 +1,87 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.matrix.mym.view.fragments.VirtualShareMarketFragment" >
 
-    <ListView
-        android:id="@+id/lvCompanyShare"
-        style="@style/card_list_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/main_background" />
-
-    <ProgressBar
-        android:id="@+id/pbCompanyShareLoading"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:background="@drawable/status_background" >
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tvShareMarketTimer"
+            style="@style/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:id="@+id/tvBalance"
+            style="@style/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:id="@+id/tvNet"
+            style="@style/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tvBalance" />
+
+        <TextView
+            android:id="@+id/tvShareMarketStatus"
+            style="@style/market_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tvShareMarketTimer" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlMarket"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone" >
+
+        <ListView
+            android:id="@+id/lvCompanyShare"
+            style="@style/card_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/main_background" />
+
+        <ProgressBar
+            android:id="@+id/pbCompanyShareLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlMarketNotStarted"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <Button
+            android:id="@+id/btStartMarket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/start_share_market" />
+
+        <TextView
+            style="@style/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btStartMarket"
+            android:layout_centerHorizontal="true"
+            android:text="@string/share_market_not_started_message" />
+    </RelativeLayout>
+
+</LinearLayout>
