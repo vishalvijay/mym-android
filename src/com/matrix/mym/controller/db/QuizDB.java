@@ -162,7 +162,7 @@ public class QuizDB {
 				"Yes, at the discretion of the Issuer/ its R and T Agent",
 				"No, shares have to be registered in the name of the concerned investor",
 				"Yes, at the discretion of the DP",
-				"Yes, provided a duly filled transfer deed is attached", 0,
+				"Yes, provided a duly filled transfer deed is attached", 1,
 				Quiz.TYPE_4_OPTIONS);
 		inserQuiz(db, 17, "A mutual fund is a collection of?",
 				"Stocks and cash", "Stocks, bonds ,and other securities",
