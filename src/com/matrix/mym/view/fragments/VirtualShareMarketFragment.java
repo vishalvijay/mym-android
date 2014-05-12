@@ -102,10 +102,12 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 	public void onCompanyShareLoaded() {
 		if (!isAdded())
 			return;
-		adapter = new CompanyShareAdapter(getActivity(),
-				shareMarketService.getAllCompanyShares());
-		companyShareListView.setAdapter(adapter);
-		companyShareLoadingProgressBar.setVisibility(View.GONE);
+		if (adapter == null) {
+			adapter = new CompanyShareAdapter(getActivity(),
+					shareMarketService.getAllCompanyShares());
+			companyShareListView.setAdapter(adapter);
+			companyShareLoadingProgressBar.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -152,7 +154,7 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 	@Override
 	public void onPause() {
 		super.onPause();
-		if (isUnbindeService)
+		if (isUnbindeService && shareMarketService != null)
 			getActivity().unbindService(mConnection);
 		if (timeCounter != null)
 			timeCounter.cancel();

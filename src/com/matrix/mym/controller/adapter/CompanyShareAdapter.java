@@ -80,6 +80,8 @@ public class CompanyShareAdapter extends SupportArrayAdapter<CompanyShare>
 
 	private void setUpPriceeChangeTextView(TextView priceChangeTextView,
 			CompanyShare companyShare) {
+		if (isForSatatus)
+			return;
 		if (companyShare.getLastPriceChange() == 0)
 			priceChangeTextView.setVisibility(View.GONE);
 		else {

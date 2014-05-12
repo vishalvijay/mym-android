@@ -10,7 +10,6 @@ import com.matrix.mym.controller.db.MymDataBase;
 import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
 import com.matrix.mym.controller.interfaces.ShareMarketServiceCallBacks;
 import com.matrix.mym.model.CompanyShare;
-import com.matrix.mym.utils.ThreadTask;
 
 public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 	protected static final int TIME_LIMIT = 5000;
@@ -20,6 +19,7 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 	private ShareMarketServiceCallBacks shareMarketServiceCallBacks;
 	private boolean isLoaded = false;
 	private boolean isPriceChanging = false;
+	private Thread thread;
 
 	public ShareMarketManager(Context context,
 			ShareMarketServiceCallBacks shareMarkerServiceCallBacks) {
@@ -29,24 +29,23 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 	}
 
 	public void startShareMarket() {
+		if (thread != null)
+			return;
 		if (mCompanyShares == null)
 			throw new IllegalStateException("CompanyShare not yet loaded");
 		if (mCompanyShares.size() == 0)
 			throw new RuntimeException(
 					"There should be atleast one CompanyShare in db");
-
-		new ThreadTask<Void, Void, Void>(new Handler()) {
-
-			protected void onPreExecute() {
-				isPriceChanging = true;
-			};
+		isPriceChanging = true;
+		final Handler handler = new Handler();
+		thread = new Thread(new Runnable() {
 
 			@Override
-			protected Void doInBackground(Void... params) {
+			public void run() {
 				Random random = new Random(System.currentTimeMillis());
 				while (isPriceChanging) {
-					for (int i = 0; i < random
-							.nextInt((mCompanyShares.size() / 3) + 1); i++) {
+					int limit = random.nextInt((mCompanyShares.size() / 3) + 1);
+					for (int i = 0; i < limit; i++) {
 						CompanyShare companyShare = mCompanyShares.get(random
 								.nextInt(mCompanyShares.size()));
 						double priceChange = (random.nextDouble() % companyShare
@@ -55,28 +54,34 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 								random.nextBoolean() ? priceChange
 										: -priceChange);
 					}
-					publishProgress();
+					handler.post(new Runnable() {
+
+						@Override
+						public void run() {
+							shareMarketServiceCallBacks.onCompanyShareUpdated();
+						}
+					});
 					try {
 						Thread.sleep(random.nextInt(TIME_LIMIT));
 					} catch (InterruptedException e) {
+						break;
 					}
 				}
 				for (CompanyShare companyShare : mCompanyShares) {
 					companyShare.close(context);
 				}
-				return null;
 			}
+		});
+		thread.start();
 
-			@Override
-			protected void onProgressUpdate(Void... values) {
-				shareMarketServiceCallBacks.onCompanyShareUpdated();
-			};
-
-		}.execute();
 	}
 
 	public void stopShareMarket() {
 		isPriceChanging = false;
+		if (thread != null) {
+			thread.interrupt();
+			thread = null;
+		}
 	}
 
 	@Override

@@ -8,7 +8,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="quiz">Quiz</string>
-    <string name="virtualsharemarket">Game</string>
+    <string name="virtualsharemarket">The maket</string>
     <string name="about">About</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="help">Help</string>
@@ -42,7 +42,7 @@
     <string name="current_price">Current price is %s Rs</string>
     <string name="your_balance">Your balance is %s Rs</string>
     <string name="no_of_shares">No. of shares</string>
-    <string name="you_need_to_pay">You need to play %s Rs</string>
+    <string name="you_need_to_pay">You need to pay %s Rs</string>
     <string name="not_enough_balance">Not enough balance</string>
     <string name="your_balance_will_be">Your balance will be %s Rs</string>
     <string name="you_have_shares">You have %s shares</string>

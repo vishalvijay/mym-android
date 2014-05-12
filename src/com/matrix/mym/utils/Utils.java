@@ -43,7 +43,7 @@ public class Utils {
 
 	public static String getHumanReadableString(Calendar calendar) {
 		calendar.add(Calendar.HOUR_OF_DAY, Constance.DURATION_OF_GAME_IN_HOUR);
-		int hour = calendar.get(Calendar.HOUR);
+		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 		int minute = calendar.get(Calendar.MINUTE);
 		String amPm = "AM";
 		if (calendar.get(Calendar.AM_PM) == Calendar.PM)
