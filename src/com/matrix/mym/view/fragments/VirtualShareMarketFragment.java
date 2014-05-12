@@ -67,7 +67,7 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 	private CountDownTimer timeCounter;
 
 	public VirtualShareMarketFragment() {
-		super(R.string.virtualsharemarket);
+		super(R.string.the_market);
 	}
 
 	@Override

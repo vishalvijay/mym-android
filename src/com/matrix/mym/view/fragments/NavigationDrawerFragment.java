@@ -86,7 +86,7 @@ public class NavigationDrawerFragment extends Fragment {
 		NavMenuItem navMenuItem = new NavMenuItem(getString(R.string.quiz),
 				R.drawable.ic_action_view_as_grid);
 		navMenuItems.add(navMenuItem);
-		navMenuItem = new NavMenuItem(getString(R.string.virtualsharemarket),
+		navMenuItem = new NavMenuItem(getString(R.string.the_market),
 				R.drawable.ic_action_gamepad);
 		navMenuItems.add(navMenuItem);
 		navMenuItem = new NavMenuItem(getString(R.string.stock_status),

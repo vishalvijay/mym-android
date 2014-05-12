@@ -1,14 +1,41 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_background"
+    android:scrollbars="none"
     tools:context="com.matrix.mym.view.fragments.HelpFragment" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/help" />
+        android:orientation="vertical" >
 
-</RelativeLayout>
+        <TextView
+            style="@style/help_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz" />
+
+        <TextView
+            style="@style/help_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_padding"
+            android:text="@string/quiz_help" />
+
+        <TextView
+            style="@style/help_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/the_market" />
+
+        <TextView
+            style="@style/help_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_padding"
+            android:text="@string/the_market_help" />
+    </LinearLayout>
+
+</ScrollView>
