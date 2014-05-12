@@ -88,38 +88,41 @@ public class CompanyShareDB {
 
 	public static void setUpTable(SQLiteDatabase db) {
 		db.execSQL(CompanyShareDB.CREATE_TABLE);
-		inserCompanyShare(db, "Traxis Bank",1675,"Banking");
-		inserCompanyShare(db, "Kepla",385.35, "Pharmaceuticals");
-		inserCompanyShare(db, "Bright Heavy Electricals Ltd",199.75,"Electrical equipment");
-		inserCompanyShare(db, "Estate bank of India",2241.15, "Banking");
-		inserCompanyShare(db, "CDFH Bank",787.10, "Banking");
-		inserCompanyShare(db, "Zorro Motorcorp",2282.00, "Automotive");
-		inserCompanyShare(db, "Timposys",3149.05, "Information Technology");
-		inserCompanyShare(db, "Oil and Steam Gas Corporation",352.75, "Oil and gas");
-		inserCompanyShare(db, "Brilliance Industires",1028.05, "Oil and gas");
-		inserCompanyShare(db, "Toto Power",81.25, "Power");
-		inserCompanyShare(db, "Rundalco Industries", 143.25, "Metals and Mining");
-		inserCompanyShare(db, "Toto Steel",425.10, "Steel");
-		inserCompanyShare(db, "Larsenl & Telbo",1374, "Conglomerate");
-		inserCompanyShare(db, "Moneyindra & Moneyindra",1114.05,"Automotive");
-		inserCompanyShare(db, "Toto Motors", 438.10 ,"Automotive");
-		inserCompanyShare(db, "Hindustani Multilever",565.00,"Consumer goods");
+		inserCompanyShare(db, "Traxis Bank", 1675, "Banking");
+		inserCompanyShare(db, "Kepla", 385.35, "Pharmaceuticals");
+		inserCompanyShare(db, "Bright Heavy Electricals Ltd", 199.75,
+				"Electrical equipment");
+		inserCompanyShare(db, "Estate bank of India", 2241.15, "Banking");
+		inserCompanyShare(db, "CDFH Bank", 787.10, "Banking");
+		inserCompanyShare(db, "Zorro Motorcorp", 2282.00, "Automotive");
+		inserCompanyShare(db, "Timposys", 3149.05, "Information Technology");
+		inserCompanyShare(db, "Oil and Steam Gas Corporation", 352.75,
+				"Oil and gas");
+		inserCompanyShare(db, "Brilliance Industires", 1028.05, "Oil and gas");
+		inserCompanyShare(db, "Toto Power", 81.25, "Power");
+		inserCompanyShare(db, "Rundalco Industries", 143.25,
+				"Metals and Mining");
+		inserCompanyShare(db, "Toto Steel", 425.10, "Steel");
+		inserCompanyShare(db, "Larsenl & Telbo", 1374, "Conglomerate");
+		inserCompanyShare(db, "Moneyindra & Moneyindra", 1114.05, "Automotive");
+		inserCompanyShare(db, "Toto Motors", 438.10, "Automotive");
+		inserCompanyShare(db, "Hindustani Multilever", 565.00, "Consumer goods");
 		inserCompanyShare(db, "HIGHTC", 353, "Conglomerate");
-		inserCompanyShare(db, "Sesi Sterlite Ltd", 186.50,"Iron and Steel");
-		inserCompanyShare(db, "Swipro" , 504.85, "Information Technology");
+		inserCompanyShare(db, "Sesi Sterlite Ltd", 186.50, "Iron and Steel");
+		inserCompanyShare(db, "Swipro", 504.85, "Information Technology");
 		inserCompanyShare(db, "Bun Pharmaceutical", 612.25, "Pharmaceuticals");
-		inserCompanyShare(db, "GAYLE" ,376.35, "Oil and gas");
+		inserCompanyShare(db, "GAYLE", 376.35, "Oil and gas");
 		inserCompanyShare(db, "UCUCU Bank", 1397.80, "Banking");
-		inserCompanyShare(db, "Flat Development Finance Corporation", 901.50 ,"Housing Finance");
+		inserCompanyShare(db, "Flat Development Finance Corporation", 901.50,
+				"Housing Finance");
 		inserCompanyShare(db, "Aarti Chairtel", 318.20, "Telecommunication");
 		inserCompanyShare(db, "Clarity Buzuki", 2021.25, "Automotive");
-		inserCompanyShare(db, "Toto Consultancy Services",	2141.05, "Information Technology");
+		inserCompanyShare(db, "Toto Consultancy Services", 2141.05,
+				"Information Technology");
 		inserCompanyShare(db, "TNTPIC", 120.00, "Power");
-		inserCompanyShare(db, "Dr. Eveready’s", 2726.05,"Pharmaceuticals");
+		inserCompanyShare(db, "Dr. Eveready’s", 2726.05, "Pharmaceuticals");
 		inserCompanyShare(db, "Jabab Auto", 1939.95, "Automotive");
 		inserCompanyShare(db, "Qoal India", 320.25, "Metals and Mining");
-
-
 	}
 
 	private static void inserCompanyShare(SQLiteDatabase db, String name,
@@ -132,4 +135,3 @@ public class CompanyShareDB {
 		db.insert(TABLE_NAME, COL_ID, contentValues);
 	}
 }
-
