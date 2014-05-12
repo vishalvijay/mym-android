@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.matrix.mym.R;
 import com.matrix.mym.controller.interfaces.UserShareLoadedCallBack;
@@ -24,10 +25,15 @@ public class SplashScreenActivity extends Activity implements
 
 	@Override
 	public void onComplete(ArrayList<UserShare> userShares) {
-		Intent intent = new Intent(getApplicationContext(),
-				MymMainActivity.class);
-		intent.putExtra(MymMainActivity.STATE_USER, mUser);
-		startActivity(intent);
-	}
+		new Handler().postDelayed(new Runnable() {
 
+			@Override
+			public void run() {
+				Intent intent = new Intent(getApplicationContext(),
+						MymMainActivity.class);
+				intent.putExtra(MymMainActivity.STATE_USER, mUser);
+				startActivity(intent);
+			}
+		}, 5000);
+	}
 }
