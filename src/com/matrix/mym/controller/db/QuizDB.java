@@ -167,6 +167,203 @@ public class QuizDB {
 		inserQuiz(db, 17, "A mutual fund is a collection of?",
 				"Stocks and cash", "Stocks, bonds ,and other securities",
 				"Bonds", "Interests accrued on a stock", 1, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 18, "The capital a company raises by selling shares is referred to as a?",
+				"Bond", "Mutual fund", "Capital gain", "Stock", 3, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 19, "Clearing and settlement operations of the NSE are carried out by?",
+				"National Security Depository Ltd.",
+				"National Security Clearing Co-operation",
+				"State Bank of India",
+				"By the exchange itself", 1, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 20, "The broker shall have to furnish SEBI a copy of audited balance sheet and profit and loss account within ",
+				"One month of each accounting period",
+				"Two months of each accounting period",
+				"Three months of each accounting period",
+				"Six months of each accounting period",
+				3, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 21, "Investment is the ",
+				"Net additions made to the nation’s capital stocks",
+				"Person’s commitment to buy a flat or a house",
+				"Employment of funds on asset to earn returns",
+				"Employment of funds on goods and services that are used in production process",
+				2, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 22,"Allotment of securities should be done within ",
+				"60 days",
+				"30 days",
+				"75 days",
+				"90 days",
+				1, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 23, "Mumbai stock exchange was recognised on a permanent basis in ",
+				"1956",
+				"1957",
+				"1950",
+				"1958",
+				1,Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 24, "The BSE was established in? ",
+				"1875",
+				"1873",
+				"1874",
+				"1872", 0, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 25,"The chance of loss or the variability of returns associated with a given asset is? ",
+				"Profitability",
+				"Returns",
+				"Value",
+				"Risk", 3, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 26 , "A security giving you the right to sell is a? ",
+				"Swaption",
+				"Call option",
+				"Put option",
+				"Short future contract", 2, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 27 , "The BSE was established as a? ",
+				"Limited liability firm",
+				"A partnership firm",
+				"A company",
+				"Voluntary non-profit Organization", 3, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 28, "The SEBI was established in? ",
+				"1990",
+				"1988",
+				"1989",
+				"1992", 1, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 29, "What kind of measure of a company’s performance and conditions do ratios provide?",
+				"Absolute",
+				"Definitive",
+				"Gross",
+				"Relative", 3, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 30, "A person who combines derivatives with a business risk is a?",
+				"Hedger",
+				"Speculator",
+				"Spreader",
+				"Stock broker", 0, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 31, "Insider trading id reported can be investigated by?",
+				"SEBI",
+				"FMC",
+				"MCA",
+				"RBI",0 , Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 32, "The credit of pledged securities remains in the account of?",
+				"The pledgor",
+				"The pledge",
+				"Both",
+				"None of the above",0 ,Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 33, "The depository account that an investor opens is called? ",
+				"Broker account",
+				"Intermediary account",
+				"Beneficiary account",
+				"Clearing member account", 2, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 34, "An investor holding shares in demat form will get his bonus entitlement in?",
+				"Demat form",
+				"Physical form",
+				"Any of the above at the choice of the Issuing Co.",
+				"Demat/ physical form at his option",3 ,Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 35, "What is the main purpose of bank account details in account opening form? ",
+				"For DP to debit the savings bank account for charges on the services enjoyed",
+				"For the purpose of income tax authorities",
+				"For safe distribution of cash corporate actions",
+				"For NSDL to debit the savings bank account for charges on the services enjoyed"
+				, 2, Quiz.TYPE_4_OPTIONS);
+		inserQuiz(db, 36, "What happens when you buy a company’s stock? ",
+				"You own a part of the company",
+				"You have lent money to the company",
+				"You are liable for the company’s debts",
+				"The company will return your original investment to you with interest", 
+				 0, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 37 , "What happens when you buy a company’s bond?",
+				"You own a part of the company",
+				"You have lent money to the company",
+				"You are liable for the company’s debts",
+				"You can vote on shareholder resolutions", 1, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 38,"Index calculation frequency for BSE Sensex is? ",
+				"30 minutes lagged",
+				"1 hour lagged",
+				"Real time",
+				"2 hour lagged", 2,Quiz.TYPE_4_OPTIONS);
+		
+		
+		inserQuiz(db, 39, "The Bombay Stock Exchange Ltd. (BSE) in 1986 came out with a stock index? ",
+				"BANKEX",
+				"BSE-100", 
+				"BSE-200",
+				"SENSEX", 3,Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 40, "Which of the following is useful in evaluating credit and collection policies? ",
+				"Average collection period",
+				"Average Sales",
+				"Current ratio",
+				"Average payment period", 0, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 41, "Arbitrage is defined as? ",
+				"Buying and selling in two markets simultaneously",
+				"A rate of interest",
+				"A Fee",
+				"Arbitrage is a dispute", 0,Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 42, "DVP, in the capital market context stands for? ",
+				"Default versus payment",
+				"Delivery versus payment",
+				"Default versus penalty",
+				"Delivery versus penalty", 1,Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 43, "The new Share Price Index (in dollar value) of Mumbai share market is?",
+				"DOLEX",
+				"UREX",
+				"FOREX",
+				"SENSEX", 0, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 44, "Mutual funds are regulated in India by which among the following? ",
+				"RBI",
+				"SEBI",
+				"Stock exchanges",
+				"Both RBI and SEBI", 1, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db,45, "In which among the following types comes the Interest Rate Risk? ",
+				"Credit Risk",
+				"Market Risk",
+				"Operational Risk",
+				"All of the Above",1, Quiz.TYPE_4_OPTIONS);
+				
+		inserQuiz(db, 46, "Warehousing facility means? ",
+				"Storing stocks with merchant banker",
+				"Storing stocks with broker",
+				"Issuing separate contract notes for different trade",
+				"Issuing one contract note for a large quantity traded in parts", 3, Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 47, "The liquidity factor of the stock included in the BSE Sensex is based on? ",
+				"Average deal as a percentage of company shares",
+				"The average number of deal of a scrip",
+				"Market capitalisation of the stock",
+				"Capital stock of the company", 1, Quiz.TYPE_4_OPTIONS);
+		
+		
+		inserQuiz(db, 48, "Over the Counter Exchange of India was started after the role model of? ",
+				"NASAQ",
+				"JASAQ",
+				"NASDAQ and JASDAQ",
+				"NSE",2 ,Quiz.TYPE_4_OPTIONS);
+		
+		inserQuiz(db, 49, "The accounting period cycle of NSE is? ",
+				"Wednesday to nest Tuesday",
+				"Tuesday to next Wednesday", "Monday to next Friday",
+				"Wednesday to next Wednesday", 0, Quiz.TYPE_4_OPTIONS);
+		
+		
 	}
 
 	private static void inserQuiz(SQLiteDatabase db, long id, String question,
@@ -185,3 +382,4 @@ public class QuizDB {
 	}
 
 }
+
