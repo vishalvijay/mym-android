@@ -13,14 +13,14 @@
 
         <TextView
             android:id="@+id/tvQuestionNumber"
-            style="@style/account"
+            style="@style/normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true" />
 
         <TextView
             android:id="@+id/tvBalance"
-            style="@style/account"
+            style="@style/normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true" />

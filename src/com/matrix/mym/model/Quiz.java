@@ -40,7 +40,7 @@ public class Quiz implements Parcelable {
 		return mOptions;
 	}
 
-	public boolean isCurrentAnswer() {
+	public boolean isCurrectAnswer() {
 		if (selectedAnswer == -1)
 			throw new IllegalStateException("Select an answer first");
 		return selectedAnswer == mAnswer;
@@ -66,7 +66,11 @@ public class Quiz implements Parcelable {
 		return MymDataBase.getQuiz(context, Settings.getCurrentQuiz(context));
 	}
 
-	public static void moveToNextQuiz(Context context) {
+	public static void moveToNextQuiz(Context context, Quiz currentQuiz) {
+		if (currentQuiz.isCurrectAnswer())
+			Settings.setSpree(context, Settings.getSpree(context) + 1);
+		else
+			Settings.setSpree(context, 1);
 		long next = Settings.getCurrentQuiz(context) + 1;
 		Quiz quiz = MymDataBase.getQuiz(context, next);
 		if (quiz == null)

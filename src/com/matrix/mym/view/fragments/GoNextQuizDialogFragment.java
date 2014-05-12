@@ -51,7 +51,7 @@ public class GoNextQuizDialogFragment extends DialogFragment {
 		super.onActivityCreated(arg0);
 		mQuiz = getArguments().getParcelable(MymMainActivity.STATE_QUIZ);
 		showTimer();
-		if (mQuiz.isCurrentAnswer())
+		if (mQuiz.isCurrectAnswer())
 			showCurrectAnswer();
 		else
 			showWrongAnswer();
@@ -61,7 +61,6 @@ public class GoNextQuizDialogFragment extends DialogFragment {
 		titleTextView.setText(R.string.wrong_answer);
 		messageTextView.setText(getString(R.string.currect_answer_is, mQuiz
 				.getOptions().get(mQuiz.getAnswer())));
-		Settings.setSpree(getActivity(), 1);
 	}
 
 	private void showCurrectAnswer() {
@@ -74,7 +73,6 @@ public class GoNextQuizDialogFragment extends DialogFragment {
 				Settings.getSpree(getActivity()), Constance.DEFAULT_USER_MONEY,
 				added);
 		messageTextView.setText(message);
-		Settings.setSpree(getActivity(), Settings.getSpree(getActivity()) + 1);
 	}
 
 	private void showTimer() {
@@ -99,7 +97,7 @@ public class GoNextQuizDialogFragment extends DialogFragment {
 			};
 
 			protected void onPostExecute(Void result) {
-				Quiz.moveToNextQuiz(getActivity());
+				Quiz.moveToNextQuiz(getActivity(), mQuiz);
 				activity.loadQuiz();
 				dismiss();
 				activity.onNavigationDrawerItemSelected(0);
