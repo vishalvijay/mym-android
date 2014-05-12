@@ -43,9 +43,11 @@ public class CompanyShare implements Parcelable, Cloneable {
 		return mClosingPrice;
 	}
 
-	public void changePrice(Context context, double rand) {
+	public void changePrice(Context context, double rand, int plusOrMinus) {
 		double change = (rand % mPrice) * 0.1f;
-		mPrice += change;
+		if(plusOrMinus==0)
+			mPrice += change;
+		else mPrice -= change;
 		MymDataBase.updatePriceOfCompanyShare(context, this);
 	}
 
