@@ -36,7 +36,7 @@ public class UserSharesDB {
 					userShare.getCompanyShareId());
 			contentValues.put(COL_COMPANY_SHARE_ID, userShare.getQuantity());
 			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
-			result = db.replaceOrThrow(TABLE_NAME, COL_ID, contentValues);
+			result = db.insertOrThrow(TABLE_NAME, COL_ID, contentValues);
 			db.close();
 		} catch (SQLException e) {
 			result = -1;
@@ -85,6 +85,21 @@ public class UserSharesDB {
 		} catch (IllegalStateException ex) {
 		}
 		return userShare;
+	}
+
+	synchronized public boolean updatePrice(UserShare userShare) {
+		long result;
+		try {
+			ContentValues contentValues = new ContentValues();
+			contentValues.put(COL_QUANTITY, userShare.getQuantity());
+			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+			result = db.update(TABLE_NAME, contentValues, COL_ID + "=? ",
+					new String[] { userShare.getId() + "" });
+			db.close();
+		} catch (SQLException e) {
+			result = 0;
+		}
+		return result != 0;
 	}
 
 	public static void setUpTable(SQLiteDatabase db) {

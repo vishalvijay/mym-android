@@ -27,6 +27,7 @@ import com.matrix.mym.controller.interfaces.ShareMarketServiceCallBacks;
 import com.matrix.mym.controller.receivers.ShareMarketReminderBroadcastReceiver;
 import com.matrix.mym.controller.receivers.ShareMarketTimeUpBroadcastReceiver;
 import com.matrix.mym.controller.service.ShareMarketService;
+import com.matrix.mym.model.User.UserCallBacks;
 import com.matrix.mym.utils.Constance;
 import com.matrix.mym.utils.Settings;
 import com.matrix.mym.utils.TimeCounter;
@@ -34,7 +35,7 @@ import com.matrix.mym.utils.Utils;
 import com.matrix.mym.view.activity.MymMainActivity;
 
 public class VirtualShareMarketFragment extends MymMainFragment implements
-		ShareMarketServiceCallBacks, OnClickListener {
+		ShareMarketServiceCallBacks, OnClickListener, UserCallBacks {
 
 	protected static final String TAG = "VirtualShareMarketFragment";
 	private ListView companyShareListView;
@@ -176,6 +177,7 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		activity.getUser().registerUserCallBack(this);
 		if (Settings.isShareMarketStarted(getActivity()))
 			doShareMarketStarted();
 		else
@@ -240,5 +242,16 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 		ShareMarketTimeUpBroadcastReceiver.register(getActivity());
 		ShareMarketReminderBroadcastReceiver.register(getActivity());
 		reopenIt();
+	}
+
+	@Override
+	public void onUserPriceChange() {
+		updateBalances();
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		activity.getUser().registerUserCallBack(this);
 	}
 }

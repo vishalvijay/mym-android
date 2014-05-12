@@ -15,6 +15,7 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 	private ArrayList<UserShare> mUserShares;
 	private UserShareLoadedCallBack userShareLoadedCallBack;
 	private boolean isLoaded = false;
+	private UserCallBacks userCallBacks;
 
 	public User(Context context, UserShareLoadedCallBack userShareLoadedCallBack) {
 		this.userShareLoadedCallBack = userShareLoadedCallBack;
@@ -35,11 +36,15 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 
 	public void setAccountBalance(Context context, double money) {
 		Settings.setUserMoney(context, money);
+		if (userCallBacks != null)
+			userCallBacks.onUserPriceChange();
 	}
 
 	public void updateAccountBalance(Context context, double money) {
 		money += Settings.getUserMoney(context);
 		Settings.setUserMoney(context, money);
+		if (userCallBacks != null)
+			userCallBacks.onUserPriceChange();
 	}
 
 	public ArrayList<UserShare> getUserShares() {
@@ -55,6 +60,25 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 	@Override
 	public int describeContents() {
 		return 0;
+	}
+
+	public void buyCompanyShare(Context context, CompanyShare companyShare,
+			long quantity) {
+		UserShare oldUserShare = null;
+		for (UserShare userShare : mUserShares) {
+			if (companyShare.getId() == userShare.getCompanyShareId()) {
+				oldUserShare = userShare;
+				break;
+			}
+		}
+		if (oldUserShare == null) {
+			oldUserShare = new UserShare(companyShare.getId(), quantity);
+			oldUserShare.save(context);
+		} else {
+			oldUserShare.addQuantity(quantity);
+			oldUserShare.update(context);
+		}
+		updateAccountBalance(context, -companyShare.getPrice() * quantity);
 	}
 
 	@Override
@@ -87,5 +111,17 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 
 	public double getNetBalance(Context context) {
 		return 0;
+	}
+
+	public static interface UserCallBacks {
+		public void onUserPriceChange();
+	}
+
+	public void registerUserCallBack(UserCallBacks userCallBacks) {
+		this.userCallBacks = userCallBacks;
+	}
+
+	public void unRegisterUserCallBack() {
+		userCallBacks = null;
 	}
 }

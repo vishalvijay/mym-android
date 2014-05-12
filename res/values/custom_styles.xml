@@ -106,4 +106,8 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="dialog_title" parent="@style/large">
+        <item name="android:singleLine">true</item>
+    </style>
+
 </resources>

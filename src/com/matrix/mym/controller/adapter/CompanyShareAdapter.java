@@ -4,7 +4,13 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.PopupMenu.OnMenuItemClickListener;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -12,11 +18,14 @@ import android.widget.TextView;
 import com.matrix.mym.R;
 import com.matrix.mym.model.CompanyShare;
 import com.matrix.mym.utils.Utils;
+import com.matrix.mym.view.fragments.BuyCompanyShareDialogFragment;
 
 @SuppressLint("ViewConstructor")
-public class CompanyShareAdapter extends SupportArrayAdapter<CompanyShare> {
+public class CompanyShareAdapter extends SupportArrayAdapter<CompanyShare>
+		implements OnClickListener, OnMenuItemClickListener {
 
 	private boolean isForSatatus = false;
+	private int mPostionClicked;
 
 	public CompanyShareAdapter(Context context,
 			ArrayList<CompanyShare> companyShares) {
@@ -50,6 +59,7 @@ public class CompanyShareAdapter extends SupportArrayAdapter<CompanyShare> {
 
 			viewHolder.menuImageButton = (ImageButton) convertView
 					.findViewById(R.id.ibMenuButton);
+			viewHolder.menuImageButton.setOnClickListener(this);
 			if (isForSatatus) {
 				viewHolder.menuImageButton.setVisibility(View.GONE);
 				viewHolder.priceChangeTextView.setVisibility(View.GONE);
@@ -63,6 +73,7 @@ public class CompanyShareAdapter extends SupportArrayAdapter<CompanyShare> {
 				.getPrice()));
 		setUpPriceeChangeTextView(viewHolder.priceChangeTextView, companyShare);
 		viewHolder.industryTextView.setText(companyShare.getIndustry());
+		viewHolder.menuImageButton.setTag(position);
 		return convertView;
 	}
 
@@ -91,4 +102,38 @@ public class CompanyShareAdapter extends SupportArrayAdapter<CompanyShare> {
 		public ImageButton menuImageButton;
 	}
 
+	@Override
+	public void onClick(View v) {
+		mPostionClicked = (int) v.getTag();
+		PopupMenu popup = new PopupMenu(getContext(), v);
+		MenuInflater inflater = popup.getMenuInflater();
+		inflater.inflate(R.menu.company_share, popup.getMenu());
+		popup.setOnMenuItemClickListener(this);
+		popup.show();
+	}
+
+	@Override
+	public boolean onMenuItemClick(MenuItem menu) {
+		switch (menu.getItemId()) {
+		case R.id.buy:
+			showBuyPopUp();
+			return true;
+		case R.id.sell:
+			showSellPopUp();
+			return true;
+		}
+		return false;
+	}
+
+	private void showSellPopUp() {
+
+	}
+
+	private void showBuyPopUp() {
+		BuyCompanyShareDialogFragment fragment = BuyCompanyShareDialogFragment
+				.newInstance((CompanyShare) getItem(mPostionClicked).clone());
+		fragment.show(
+				((FragmentActivity) getContext()).getSupportFragmentManager(),
+				"buy");
+	}
 }

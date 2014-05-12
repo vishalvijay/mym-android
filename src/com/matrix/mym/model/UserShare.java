@@ -17,12 +17,9 @@ public class UserShare implements Parcelable {
 		mQuantity = quantity;
 	}
 
-	public UserShare(Context context, long companyShareId, long quantity) {
+	public UserShare(long companyShareId, long quantity) {
 		mCompanyShareId = companyShareId;
 		mQuantity = quantity;
-		long id = MymDataBase.saveUserShare(context, this);
-		if (id != -1)
-			mId = id;
 	}
 
 	public long getCompanyShareId() {
@@ -37,8 +34,16 @@ public class UserShare implements Parcelable {
 		return mId;
 	}
 
+	public void addQuantity(long quantity) {
+		mQuantity += quantity;
+	}
+
 	public void save(Context context) {
-		MymDataBase.saveUserShare(context, this);
+		mId = MymDataBase.saveUserShare(context, this);
+	}
+
+	public void update(Context context) {
+		MymDataBase.updateUserShare(context, this);
 	}
 
 	public static UserShare getInstance(Context context, long companyShareId) {

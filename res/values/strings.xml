@@ -37,5 +37,12 @@
     <string name="currect_answer_message">%1$s * %2$s = %3$s added to your account.\nKeep going</string>
     <string name="wrong_answer">Ooh&#8230; wrong answer</string>
     <string name="currect_answer_is">Currect answer is \'%s\'.\nTry next time</string>
+    <string name="buy">Buy</string>
+    <string name="sell">Sell</string>
+    <string name="current_price">Current price is %s Rs</string>
+    <string name="your_balance">Your balnce is %s Rs</string>
+    <string name="no_of_shares">No. of shares</string>
+    <string name="you_need_to_pay">You need to play %s</string>
+    <string name="not_enough_balance">Not enough balance</string>
 
 </resources>

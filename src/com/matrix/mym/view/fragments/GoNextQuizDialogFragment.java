@@ -15,7 +15,7 @@ import com.matrix.mym.utils.Settings;
 import com.matrix.mym.view.activity.MymMainActivity;
 
 public class GoNextQuizDialogFragment extends DialogFragment {
-	private static final int TIME_DELAY_SEC = 10;
+	private static final int TIME_DELAY_SEC = 6;
 	private TextView titleTextView, messageTextView, timerTextView;
 	private Quiz mQuiz;
 	private MymMainActivity activity;

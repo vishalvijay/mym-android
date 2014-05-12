@@ -1,10 +1,13 @@
 package com.matrix.mym.model;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.matrix.mym.controller.db.MymDataBase;
 
-public class CompanyShare {
+public class CompanyShare implements Parcelable, Cloneable {
+	public static final String STATE = "company_share";
 	private long mId;
 	private String mName;
 	private double mPrice;
@@ -62,5 +65,47 @@ public class CompanyShare {
 	public void saveClosingPrice(Context context) {
 		mClosingPrice = mPrice;
 		MymDataBase.updateClosingPriceOfCompanyShare(context, this);
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeLong(mId);
+		dest.writeString(mName);
+		dest.writeDouble(mPrice);
+		dest.writeDouble(mClosingPrice);
+		dest.writeString(mIndustry);
+	}
+
+	private CompanyShare(Parcel source) {
+		mId = source.readLong();
+		mName = source.readString();
+		mPrice = source.readDouble();
+		mClosingPrice = source.readDouble();
+		mIndustry = source.readString();
+	}
+
+	public static final Parcelable.Creator<CompanyShare> CREATOR = new Parcelable.Creator<CompanyShare>() {
+		@Override
+		public CompanyShare createFromParcel(Parcel source) {
+			return new CompanyShare(source);
+		}
+
+		@Override
+		public CompanyShare[] newArray(int size) {
+			return new CompanyShare[size];
+		}
+	};
+
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

@@ -93,6 +93,10 @@ public class MymDataBase {
 		return getInstance(context).getUserSharesDB().saveUserShare(userShare);
 	}
 
+	public static boolean updateUserShare(Context context, UserShare userShare) {
+		return getInstance(context).getUserSharesDB().updatePrice(userShare);
+	}
+
 	public static UserShare getUserShare(Context context, long companyShareId) {
 		return getInstance(context).getUserSharesDB().getUserShare(
 				companyShareId);
