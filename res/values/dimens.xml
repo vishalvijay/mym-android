@@ -13,4 +13,6 @@
     <dimen name="double_common_padding">10dp</dimen>
     <dimen name="card_overflow_margin_right">3dp</dimen>
 
+    <integer name="grid_column">1</integer>
+
 </resources>

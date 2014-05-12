@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/status"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.matrix.mym.view.fragments.GoNextQuizDialogFragment" >
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvMessage"
+        style="@style/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvTimer"
+        style="@style/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

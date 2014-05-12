@@ -19,14 +19,14 @@
 
         <TextView
             android:id="@+id/tvBalance"
-            style="@style/account"
+            style="@style/normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true" />
 
         <TextView
             android:id="@+id/tvNet"
-            style="@style/account"
+            style="@style/normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -50,10 +50,9 @@
 
         <ListView
             android:id="@+id/lvCompanyShare"
-            style="@style/card_list_view"
+            style="@style/card_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/main_background" />
+            android:layout_height="match_parent" />
 
         <ProgressBar
             android:id="@+id/pbCompanyShareLoading"

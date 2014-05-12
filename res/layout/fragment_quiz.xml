@@ -1,14 +1,44 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="com.matrix.mym.view.fragments.QuizFragment" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/quiz" />
+        android:background="@drawable/status_background" >
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tvQuestionNumber"
+            style="@style/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:id="@+id/tvBalance"
+            style="@style/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        style="@style/question_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/double_common_padding" />
+
+    <GridView
+        android:id="@+id/gvOptions"
+        style="@style/answer_grid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </GridView>
+
+</LinearLayout>

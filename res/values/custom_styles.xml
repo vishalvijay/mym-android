@@ -32,10 +32,11 @@
         <item name="android:layout_marginRight">@dimen/card_overflow_margin_right</item>
     </style>
 
-    <style name="card_list_view">
+    <style name="card_list">
         <item name="android:divider">@android:color/transparent</item>
         <item name="android:dividerHeight">@dimen/common_padding</item>
         <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:background">@drawable/main_background</item>
     </style>
 
     <style name="market_status" parent="@style/base_view">
@@ -57,6 +58,51 @@
     <style name="empty" parent="@style/base_view">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="question_card">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/double_common_padding</item>
+        <item name="android:background">@drawable/question_card</item>
+    </style>
+
+    <style name="answer_grid" parent="@style/card_list">
+        <item name="android:numColumns">@integer/grid_column</item>
+        <item name="android:horizontalSpacing">@dimen/double_common_padding</item>
+        <item name="android:verticalSpacing">@dimen/double_common_padding</item>
+        <item name="android:drawSelectorOnTop">true</item>
+    </style>
+
+    <style name="option">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/navmenu_bg</item>
+        <item name="android:padding">@dimen/double_common_padding</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="answer">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:padding">@dimen/double_common_padding</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="normal" parent="@style/base_view">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="large" parent="@style/base_view">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="message" parent="@style/market_status">
         <item name="android:gravity">center</item>
     </style>
 

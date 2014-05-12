@@ -14,5 +14,6 @@
     <color name="share_positive">#27ae60</color>
     <color name="share_negative">#c0392b</color>
     <color name="status">#d74141</color>
+    <color name="mym_color_with_alpha">#80da2f2b</color>
 
 </resources>

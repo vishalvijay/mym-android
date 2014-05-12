@@ -26,7 +26,7 @@ public class SplashScreenActivity extends Activity implements
 	public void onComplete(ArrayList<UserShare> userShares) {
 		Intent intent = new Intent(getApplicationContext(),
 				MymMainActivity.class);
-		intent.putExtra(MymMainActivity.USER, mUser);
+		intent.putExtra(MymMainActivity.STATE_USER, mUser);
 		startActivity(intent);
 	}
 

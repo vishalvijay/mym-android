@@ -17,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		CompanyShareDB.setUpTable(db);
 		UserSharesDB.setUpTable(db);
+		QuizDB.setUpTable(db);
 	}
 
 	@Override
@@ -26,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		dropTable(db, CompanyShareDB.TABLE_TABLE);
+		dropTable(db, CompanyShareDB.TABLE_NAME);
 		dropTable(db, UserSharesDB.TABLE_NAME);
 		onCreate(db);
 	}

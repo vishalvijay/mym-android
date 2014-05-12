@@ -10,14 +10,14 @@ import android.database.sqlite.SQLiteDatabase;
 import com.matrix.mym.model.CompanyShare;
 
 public class CompanyShareDB {
-	public static final String TABLE_TABLE = "company_share";
+	public static final String TABLE_NAME = "company_share";
 	public static final String COL_ID = "_id";
 	public static final String COL_NAME = "name";
 	public static final String COL_PRICE = "price";
 	public static final String COL_CLOSING_PRICE = "closing_price";
 	public static final String COL_INDUSTRY = "industry";
 	public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "
-			+ TABLE_TABLE + "(" + COL_ID
+			+ TABLE_NAME + "(" + COL_ID
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_NAME
 			+ " VARCHAR(128) NOT NULL, " + COL_PRICE + " REAL NOT NULL, "
 			+ COL_CLOSING_PRICE + " REAL NOT NULL, " + COL_INDUSTRY
@@ -35,7 +35,7 @@ public class CompanyShareDB {
 			ContentValues contentValues = new ContentValues();
 			contentValues.put(COL_PRICE, companyShare.getPrice());
 			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
-			result = db.update(TABLE_TABLE, contentValues, COL_ID + "=? ",
+			result = db.update(TABLE_NAME, contentValues, COL_ID + "=? ",
 					new String[] { companyShare.getId() + "" });
 			db.close();
 		} catch (SQLException e) {
@@ -51,7 +51,7 @@ public class CompanyShareDB {
 			contentValues
 					.put(COL_CLOSING_PRICE, companyShare.getClosingPrice());
 			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
-			result = db.update(TABLE_TABLE, contentValues, COL_ID + "=? ",
+			result = db.update(TABLE_NAME, contentValues, COL_ID + "=? ",
 					new String[] { companyShare.getId() + "" });
 			db.close();
 		} catch (SQLException e) {
@@ -64,7 +64,7 @@ public class CompanyShareDB {
 		ArrayList<CompanyShare> companyShares = new ArrayList<CompanyShare>();
 		try {
 			SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-			Cursor cursor = db.query(TABLE_TABLE, new String[] { COL_ID,
+			Cursor cursor = db.query(TABLE_NAME, new String[] { COL_ID,
 					COL_NAME, COL_PRICE, COL_CLOSING_PRICE, COL_INDUSTRY },
 					null, null, null, null, COL_ID);
 			while (cursor.moveToNext()) {
@@ -131,6 +131,6 @@ public class CompanyShareDB {
 		contentValues.put(COL_PRICE, price);
 		contentValues.put(COL_CLOSING_PRICE, price);
 		contentValues.put(COL_INDUSTRY, industry);
-		db.insert(TABLE_TABLE, COL_ID, contentValues);
+		db.insert(TABLE_NAME, COL_ID, contentValues);
 	}
 }

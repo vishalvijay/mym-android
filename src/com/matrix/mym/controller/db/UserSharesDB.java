@@ -19,7 +19,7 @@ public class UserSharesDB {
 			+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + COL_COMPANY_SHARE_ID
 			+ " INTEGER NOT NULL UNIQUE, " + COL_QUANTITY
 			+ " INTEGER  NOT NULL, FOREIGN KEY(" + COL_COMPANY_SHARE_ID
-			+ ") REFERENCES " + CompanyShareDB.TABLE_TABLE + " ("
+			+ ") REFERENCES " + CompanyShareDB.TABLE_NAME + " ("
 			+ CompanyShareDB.COL_ID + ") ON DELETE CASCADE ON UPDATE CASCADE);";
 
 	private DatabaseHelper mDatabaseHelper;

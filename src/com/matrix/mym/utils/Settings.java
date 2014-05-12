@@ -11,6 +11,8 @@ public class Settings {
 	private static String PREFS_USER_MONEY = "user_money";
 	private static String PREFS_IS_SHARE_MARKET_STARTED = "is_share_market_started";
 	private static String PREFS_MARKET_STARTED_TIME = "market_started_time";
+	private static String PREFS_CURRENT_QUIZ = "current_quiz";
+	private static String PREFS_SPREE = "spree";
 
 	private static Editor putDouble(Editor edit, String key, double value) {
 		return edit.putLong(key, Double.doubleToRawLongBits(value));
@@ -68,5 +70,31 @@ public class Settings {
 		else
 			calendar.setTimeInMillis(calenderMilli);
 		return calendar;
+	}
+
+	public static void setCurrentQuiz(Context context, long id) {
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor edit = prefs.edit();
+		edit.putLong(PREFS_CURRENT_QUIZ, id).commit();
+	}
+
+	public static long getCurrentQuiz(Context context) {
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		return prefs.getLong(PREFS_CURRENT_QUIZ, 0);
+	}
+
+	public static void setSpree(Context context, int id) {
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor edit = prefs.edit();
+		edit.putInt(PREFS_SPREE, id).commit();
+	}
+
+	public static int getSpree(Context context) {
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		return prefs.getInt(PREFS_SPREE, 1);
 	}
 }

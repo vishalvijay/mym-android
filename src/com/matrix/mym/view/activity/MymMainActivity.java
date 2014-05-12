@@ -11,6 +11,7 @@ import android.view.Window;
 
 import com.matrix.mym.R;
 import com.matrix.mym.controller.db.MymDataBase;
+import com.matrix.mym.model.Quiz;
 import com.matrix.mym.model.User;
 import com.matrix.mym.view.fragments.AboutFragment;
 import com.matrix.mym.view.fragments.HelpFragment;
@@ -23,10 +24,12 @@ import com.matrix.mym.view.fragments.VirtualShareMarketFragment;
 public class MymMainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 	protected static final String TAG = "MymMainActivity";
-	public static final String USER = "user";
+	public static final String STATE_USER = "user";
+	public static final String STATE_QUIZ = "quiz";
 	public static final String FRAGMENT_TITLE = "title";
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 	private User mUser;
+	private Quiz mQuiz;
 
 	/**
 	 * Used to store the last screen title. For use in
@@ -40,10 +43,13 @@ public class MymMainActivity extends ActionBarActivity implements
 		supportRequestWindowFeature(Window.FEATURE_PROGRESS);
 		supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.activity_mym_main);
-		if (savedInstanceState == null)
-			mUser = getIntent().getParcelableExtra(USER);
-		else
-			mUser = savedInstanceState.getParcelable(USER);
+		if (savedInstanceState == null) {
+			mUser = getIntent().getParcelableExtra(STATE_USER);
+			loadQuiz();
+		} else {
+			mUser = savedInstanceState.getParcelable(STATE_USER);
+			mQuiz = savedInstanceState.getParcelable(STATE_QUIZ);
+		}
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
@@ -110,9 +116,18 @@ public class MymMainActivity extends ActionBarActivity implements
 		return mUser;
 	}
 
+	public Quiz getQuiz() {
+		return mQuiz;
+	}
+
+	public void loadQuiz() {
+		mQuiz = Quiz.getCurrentQuiz(getApplicationContext());
+	}
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		outState.putParcelable(USER, mUser);
+		outState.putParcelable(STATE_USER, mUser);
+		outState.putParcelable(STATE_QUIZ, mQuiz);
 		super.onSaveInstanceState(outState);
 	}
 }

@@ -33,5 +33,9 @@
     <string name="share_market_not_started_message">You can start this virtual share market from here.\nMarket will run for next 1hr.</string>
     <string name="remaining_time">Share market will close in next 15 mins</string>
     <string name="share_market_closed">Share market closed</string>
+    <string name="congratzz">Congratzz!</string>
+    <string name="currect_answer_message">%1$s * %2$s = %3$s added to your account.\nKeep going</string>
+    <string name="wrong_answer">Ooh&#8230; wrong answer</string>
+    <string name="currect_answer_is">Currect answer is \'%s\'.\nTry next time</string>
 
 </resources>

@@ -50,8 +50,10 @@ public class CompanyShareAdapter extends SupportArrayAdapter<CompanyShare> {
 
 			viewHolder.menuImageButton = (ImageButton) convertView
 					.findViewById(R.id.ibMenuButton);
-			if (isForSatatus)
+			if (isForSatatus) {
 				viewHolder.menuImageButton.setVisibility(View.GONE);
+				viewHolder.priceChangeTextView.setVisibility(View.GONE);
+			}
 			convertView.setTag(viewHolder);
 		} else
 			viewHolder = (ViewHolder) convertView.getTag();

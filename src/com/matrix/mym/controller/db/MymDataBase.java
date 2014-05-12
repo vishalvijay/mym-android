@@ -2,13 +2,14 @@ package com.matrix.mym.controller.db;
 
 import java.util.ArrayList;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
 import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
 import com.matrix.mym.controller.interfaces.UserShareLoadedCallBack;
 import com.matrix.mym.model.CompanyShare;
+import com.matrix.mym.model.Quiz;
 import com.matrix.mym.model.UserShare;
-
-import android.content.Context;
-import android.os.AsyncTask;
 
 public class MymDataBase {
 
@@ -20,11 +21,13 @@ public class MymDataBase {
 	private DatabaseHelper mDatabaseHelper;
 	private CompanyShareDB mCompanyShareDB;
 	private UserSharesDB mUserShareDB;
+	private QuizDB mQuizDB;
 
 	private MymDataBase(Context context) {
 		mDatabaseHelper = new DatabaseHelper(context);
 		mCompanyShareDB = new CompanyShareDB(mDatabaseHelper);
 		mUserShareDB = new UserSharesDB(mDatabaseHelper);
+		mQuizDB = new QuizDB(mDatabaseHelper);
 	}
 
 	private static MymDataBase getInstance(Context context) {
@@ -50,6 +53,10 @@ public class MymDataBase {
 
 	public UserSharesDB getUserSharesDB() {
 		return mUserShareDB;
+	}
+
+	public QuizDB getQuizDB() {
+		return mQuizDB;
 	}
 
 	public static void getAllCompanyShares(final Context context,
@@ -105,5 +112,9 @@ public class MymDataBase {
 			};
 
 		}.execute();
+	}
+
+	public static Quiz getQuiz(Context context, long id) {
+		return getInstance(context).getQuizDB().getQuizById(id);
 	}
 }
