@@ -45,7 +45,7 @@ public class CompanyShare implements Parcelable, Cloneable {
 
 	public void addPrice(Context context, double priceChange) {
 		mPrice += priceChange;
-		MymDataBase.updatePriceOfCompanyShare(context, this);
+		MymDataBase.updateCompanyShare(context, this);
 	}
 
 	@Override
@@ -59,11 +59,6 @@ public class CompanyShare implements Parcelable, Cloneable {
 
 	public boolean isPositiveChange() {
 		return mPrice >= mClosingPrice;
-	}
-
-	public void saveClosingPrice(Context context) {
-		mClosingPrice = mPrice;
-		MymDataBase.updateClosingPriceOfCompanyShare(context, this);
 	}
 
 	@Override
@@ -106,5 +101,10 @@ public class CompanyShare implements Parcelable, Cloneable {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	public void close(Context context) {
+		mClosingPrice = mPrice;
+		MymDataBase.updateCompanyShare(context, this);
 	}
 }

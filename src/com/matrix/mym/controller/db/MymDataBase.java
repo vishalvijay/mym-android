@@ -77,16 +77,9 @@ public class MymDataBase {
 		}.execute();
 	}
 
-	public static boolean updatePriceOfCompanyShare(Context context,
+	public static boolean updateCompanyShare(Context context,
 			CompanyShare companyShare) {
-		return getInstance(context).getCompanyShareDB().updatePrice(
-				companyShare);
-	}
-
-	public static boolean updateClosingPriceOfCompanyShare(Context context,
-			CompanyShare companyShare) {
-		return getInstance(context).getCompanyShareDB().updateClosingPrice(
-				companyShare);
+		return getInstance(context).getCompanyShareDB().update(companyShare);
 	}
 
 	public static long saveUserShare(Context context, UserShare userShare) {

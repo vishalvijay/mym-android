@@ -29,27 +29,13 @@ public class CompanyShareDB {
 		mDatabaseHelper = databaseHelper;
 	}
 
-	synchronized public boolean updatePrice(CompanyShare companyShare) {
-		long result;
-		try {
-			ContentValues contentValues = new ContentValues();
-			contentValues.put(COL_PRICE, companyShare.getPrice());
-			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
-			result = db.update(TABLE_NAME, contentValues, COL_ID + "=? ",
-					new String[] { companyShare.getId() + "" });
-			db.close();
-		} catch (SQLException e) {
-			result = 0;
-		}
-		return result != 0;
-	}
-
-	synchronized public boolean updateClosingPrice(CompanyShare companyShare) {
+	synchronized public boolean update(CompanyShare companyShare) {
 		long result;
 		try {
 			ContentValues contentValues = new ContentValues();
 			contentValues
 					.put(COL_CLOSING_PRICE, companyShare.getClosingPrice());
+			contentValues.put(COL_PRICE, companyShare.getPrice());
 			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 			result = db.update(TABLE_NAME, contentValues, COL_ID + "=? ",
 					new String[] { companyShare.getId() + "" });

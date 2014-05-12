@@ -61,6 +61,9 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 					} catch (InterruptedException e) {
 					}
 				}
+				for (CompanyShare companyShare : mCompanyShares) {
+					companyShare.close(context);
+				}
 				return null;
 			}
 
