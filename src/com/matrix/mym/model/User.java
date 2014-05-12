@@ -64,21 +64,25 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 
 	public void buyCompanyShare(Context context, CompanyShare companyShare,
 			long quantity) {
-		UserShare oldUserShare = null;
-		for (UserShare userShare : mUserShares) {
-			if (companyShare.getId() == userShare.getCompanyShareId()) {
-				oldUserShare = userShare;
-				break;
-			}
-		}
+		UserShare oldUserShare = findUserShare(companyShare);
 		if (oldUserShare == null) {
 			oldUserShare = new UserShare(companyShare.getId(), quantity);
 			oldUserShare.save(context);
+			mUserShares.add(oldUserShare);
 		} else {
 			oldUserShare.addQuantity(quantity);
 			oldUserShare.update(context);
 		}
 		updateAccountBalance(context, -companyShare.getPrice() * quantity);
+	}
+
+	private UserShare findUserShare(CompanyShare companyShare) {
+		for (UserShare userShare : mUserShares) {
+			if (companyShare.getId() == userShare.getCompanyShareId()) {
+				return userShare;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -123,5 +127,26 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 
 	public void unRegisterUserCallBack() {
 		userCallBacks = null;
+	}
+
+	public long getQuantityByCompanyShareId(long companyShareId) {
+		long quantity = 0;
+		for (UserShare userShare : mUserShares) {
+			if (userShare.getCompanyShareId() == companyShareId) {
+				quantity = userShare.getQuantity();
+				break;
+			}
+		}
+		return quantity;
+	}
+
+	public void sellCompanyShare(Context context, CompanyShare companyShare,
+			long quantity) {
+		UserShare userShare = findUserShare(companyShare);
+		if (userShare == null)
+			throw new IllegalStateException("You can't sell this CompanyShare");
+		userShare.addQuantity(-quantity);
+		userShare.update(context);
+		updateAccountBalance(context, companyShare.getPrice() * quantity);
 	}
 }

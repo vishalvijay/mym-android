@@ -40,9 +40,15 @@
     <string name="buy">Buy</string>
     <string name="sell">Sell</string>
     <string name="current_price">Current price is %s Rs</string>
-    <string name="your_balance">Your balnce is %s Rs</string>
+    <string name="your_balance">Your balance is %s Rs</string>
     <string name="no_of_shares">No. of shares</string>
-    <string name="you_need_to_pay">You need to play %s</string>
+    <string name="you_need_to_pay">You need to play %s Rs</string>
     <string name="not_enough_balance">Not enough balance</string>
+    <string name="your_balance_will_be">Your balance will be %s Rs</string>
+    <string name="you_have_shares">You have %s shares</string>
+    <string name="you_dont_have_share">You don\'t have any share of this company</string>
+    <string name="you_will_get">You will get %s Rs</string>
+    <string name="remaining_shares">%s shares will remain</string>
+    <string name="not_enough_shares">Not enough shares available</string>
 
 </resources>

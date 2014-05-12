@@ -18,19 +18,20 @@ import com.matrix.mym.model.CompanyShare;
 import com.matrix.mym.utils.Utils;
 import com.matrix.mym.view.activity.MymMainActivity;
 
-public class BuyCompanyShareDialogFragment extends DialogFragment implements
+public class SellCompanyShareDialogFragment extends DialogFragment implements
 		OnClickListener, TextWatcher {
 
 	private MymMainActivity activity;
 	private CompanyShare mCompanyShare;
 	private TextView titleTextView, currentPriceTextView, balanceTextView,
-			totalTextView;
+			totalTextView, shareNumberTextView;
 	private Button submitButton;
 	private EditText numberEditText;
+	private long quantity;
 
-	public static BuyCompanyShareDialogFragment newInstance(
+	public static SellCompanyShareDialogFragment newInstance(
 			CompanyShare companyShare) {
-		BuyCompanyShareDialogFragment f = new BuyCompanyShareDialogFragment();
+		SellCompanyShareDialogFragment f = new SellCompanyShareDialogFragment();
 		Bundle args = new Bundle();
 		args.putParcelable(CompanyShare.STATE, companyShare);
 		f.setArguments(args);
@@ -56,28 +57,42 @@ public class BuyCompanyShareDialogFragment extends DialogFragment implements
 		submitButton = (Button) rootView.findViewById(R.id.btSubmit);
 		submitButton.setOnClickListener(this);
 		View v = getLayoutInflater(null).inflate(
-				R.layout.fragment_buy_company_share, fl, false);
+				R.layout.fragment_sell_company_share, fl, false);
 		fl.addView(v);
 		currentPriceTextView = (TextView) v.findViewById(R.id.tvCurrentPrice);
 		balanceTextView = (TextView) v.findViewById(R.id.tvBalance);
 		totalTextView = (TextView) v.findViewById(R.id.tvTotalBalance);
+		shareNumberTextView = (TextView) v.findViewById(R.id.tvShareNums);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle arg0) {
 		super.onActivityCreated(arg0);
 		mCompanyShare = getArguments().getParcelable(CompanyShare.STATE);
+		quantity = activity.getUser().getQuantityByCompanyShareId(
+				mCompanyShare.getId());
+		if (quantity == 0) {
+			dismiss();
+			Utils.showInfoToast(getActivity(), R.string.you_dont_have_share);
+			return;
+		}
 		titleTextView.setText(mCompanyShare.getName());
 		changeMoneyTextView(currentPriceTextView, mCompanyShare.getPrice(),
 				R.string.current_price);
 		setDefaultBalance();
-		submitButton.setText(R.string.buy);
+		setDefaultQuantity();
+		submitButton.setText(R.string.sell);
+	}
+
+	private void setDefaultQuantity() {
+		shareNumberTextView.setText(getString(R.string.you_have_shares,
+				quantity));
 	}
 
 	@Override
 	public void onClick(View v) {
 		long quantity = Integer.parseInt(numberEditText.getText().toString());
-		activity.getUser().buyCompanyShare(getActivity(), mCompanyShare,
+		activity.getUser().sellCompanyShare(getActivity(), mCompanyShare,
 				quantity);
 		dismiss();
 	}
@@ -96,17 +111,20 @@ public class BuyCompanyShareDialogFragment extends DialogFragment implements
 			return;
 		}
 		long n = Integer.parseInt(s.toString());
-		double pay = n * mCompanyShare.getPrice();
-		double balance = activity.getUser().getAccountBalance(activity) - pay;
-		if (balance > 0) {
-			changeMoneyTextView(totalTextView, pay, R.string.you_need_to_pay);
-			changeMoneyTextView(balanceTextView, activity.getUser()
-					.getAccountBalance(activity) - pay,
+		if (n <= quantity) {
+			changeMoneyTextView(totalTextView, n * mCompanyShare.getPrice(),
+					R.string.you_will_get);
+			changeMoneyTextView(balanceTextView,
+					activity.getUser().getAccountBalance(getActivity())
+							+ (n * mCompanyShare.getPrice()),
 					R.string.your_balance_will_be);
+			shareNumberTextView.setText(getString(R.string.remaining_shares,
+					quantity - n));
 			submitButton.setEnabled(true);
 		} else {
-			totalTextView.setText(R.string.not_enough_balance);
+			totalTextView.setText(R.string.not_enough_shares);
 			setDefaultBalance();
+			setDefaultQuantity();
 		}
 	}
 

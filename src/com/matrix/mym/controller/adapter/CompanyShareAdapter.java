@@ -19,6 +19,7 @@ import com.matrix.mym.R;
 import com.matrix.mym.model.CompanyShare;
 import com.matrix.mym.utils.Utils;
 import com.matrix.mym.view.fragments.BuyCompanyShareDialogFragment;
+import com.matrix.mym.view.fragments.SellCompanyShareDialogFragment;
 
 @SuppressLint("ViewConstructor")
 public class CompanyShareAdapter extends SupportArrayAdapter<CompanyShare>
@@ -126,7 +127,11 @@ public class CompanyShareAdapter extends SupportArrayAdapter<CompanyShare>
 	}
 
 	private void showSellPopUp() {
-
+		SellCompanyShareDialogFragment fragment = SellCompanyShareDialogFragment
+				.newInstance((CompanyShare) getItem(mPostionClicked).clone());
+		fragment.show(
+				((FragmentActivity) getContext()).getSupportFragmentManager(),
+				"sell");
 	}
 
 	private void showBuyPopUp() {

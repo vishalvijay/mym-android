@@ -34,7 +34,7 @@ public class UserSharesDB {
 			ContentValues contentValues = new ContentValues();
 			contentValues.put(COL_COMPANY_SHARE_ID,
 					userShare.getCompanyShareId());
-			contentValues.put(COL_COMPANY_SHARE_ID, userShare.getQuantity());
+			contentValues.put(COL_QUANTITY, userShare.getQuantity());
 			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 			result = db.insertOrThrow(TABLE_NAME, COL_ID, contentValues);
 			db.close();
