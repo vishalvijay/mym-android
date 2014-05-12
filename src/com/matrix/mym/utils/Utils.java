@@ -14,7 +14,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.widget.Toast;
 
 public class Utils {
-	public static final boolean isProduction = true;
+	public static final boolean isProduction = false;
 
 	public static void showErrorToast(Context context, String msg) {
 		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();

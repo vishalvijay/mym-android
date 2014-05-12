@@ -11,6 +11,7 @@ import com.matrix.mym.R;
 import com.matrix.mym.controller.interfaces.UserShareLoadedCallBack;
 import com.matrix.mym.model.User;
 import com.matrix.mym.model.UserShare;
+import com.matrix.mym.utils.GoogleAnalyticsManager;
 
 public class SplashScreenActivity extends Activity implements
 		UserShareLoadedCallBack {
@@ -35,5 +36,17 @@ public class SplashScreenActivity extends Activity implements
 				startActivity(intent);
 			}
 		}, 5000);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		GoogleAnalyticsManager.startGoogleAnalyticsForActivity(this);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		GoogleAnalyticsManager.stopGoogleAnalyticsForActivity(this);
 	}
 }
