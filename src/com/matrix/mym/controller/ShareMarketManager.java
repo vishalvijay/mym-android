@@ -49,7 +49,7 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 							.nextInt((mCompanyShares.size() / 3) + 1); i++) {
 						CompanyShare companyShare = mCompanyShares.get(random
 								.nextInt(mCompanyShares.size()));
-						companyShare.changePrice(context, random.nextDouble());
+						companyShare.changePrice(context, random.nextDouble(),random.nextInt()%2);
 					}
 					publishProgress();
 					try {
