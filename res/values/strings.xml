@@ -22,7 +22,7 @@
     <string name="rate_the_app">Rate the app</string>
     <string name="virtual_share_market">Virtual share market</string>
     <string name="share_options">Share options</string>
-    <string name="money">Rs %s</string>
+    <string name="money">Rs %s/-</string>
     <string name="market_never_started">Market never started</string>
     <string name="market_closed_at">Market closed at %s</string>
     <string name="balance">Balance : %s</string>
@@ -34,23 +34,23 @@
     <string name="remaining_time">Share market will close in next 15 mins</string>
     <string name="share_market_closed">Share market closed</string>
     <string name="congratzz">Congratzz!</string>
-    <string name="currect_answer_message">%1$s * %2$s = %3$s added to your account.\nKeep going</string>
+    <string name="currect_answer_message">%1$s * %2$s = Rs %3$s/- added to your account.\nKeep going</string>
     <string name="wrong_answer">Ooh&#8230; wrong answer</string>
     <string name="currect_answer_is">Currect answer is \'%s\'.\nTry next time</string>
     <string name="buy">Buy</string>
     <string name="sell">Sell</string>
-    <string name="current_price">Current price is Rs %s</string>
-    <string name="your_balance">Your balance is Rs %s</string>
+    <string name="current_price">Current price is Rs %s/-</string>
+    <string name="your_balance">Your balance is Rs %s/-</string>
     <string name="no_of_shares">No. of shares</string>
-    <string name="you_need_to_pay">You need to pay Rs %s</string>
+    <string name="you_need_to_pay">You need to pay Rs %s-/</string>
     <string name="not_enough_balance">Not enough balance</string>
-    <string name="your_balance_will_be">Your balance will be Rs %s</string>
+    <string name="your_balance_will_be">Your balance will be Rs %s/-</string>
     <string name="you_have_shares">You have %s shares</string>
     <string name="you_dont_have_share">You don\'t have any share of this company</string>
-    <string name="you_will_get">You will get Rs %s</string>
+    <string name="you_will_get">You will get Rs %s/-</string>
     <string name="remaining_shares">%s shares will remain</string>
     <string name="not_enough_shares">Not enough shares available</string>
-    <string name="quiz_help">The Quiz is a means to obtain money to trade with. You can access the Quiz anytime to increase your capital. You can obtain money by answering the questions correctly. You are given Rs.500/- for a correct answer. If you can give the right answers to the questions in an unbroken stretch then you will be awarded that particular question with a multiple of the spree.\n\n<b>For Example:</b> The first correct answer will fetch you Rs 500/-. If you answer the next one correct then you are awarded a sum of 2 * Rs 500/- = Rs 1000/-, for the second question. If you get 3 in a row the third question will contain a value of 3 * Rs 500/- = Rs 1500/- and so on.\n\nIf you give a wrong answer the flow is broken and you start from Rs.500/- for each question.</string>
+    <string name="quiz_help">The Quiz is a means to obtain money to trade with. You can access the Quiz anytime to increase your capital. You can obtain money by answering the questions correctly. You are given Rs 500/- for a correct answer. If you can give the right answers to the questions in an unbroken stretch then you will be awarded that particular question with a multiple of the spree.\n\n<b>For Example:</b> The first correct answer will fetch you Rs 500/-. If you answer the next one correct then you are awarded a sum of 2 * Rs 500/- = Rs 1000/-, for the second question. If you get 3 in a row the third question will contain a value of 3 * Rs 500/- = Rs 1500/- and so on.\n\nIf you give a wrong answer the flow is broken and you start from Rs 500/- for each question.</string>
     <string name="the_market_help">The Market is where you prove your skills as an investor. Utilize the funds you obtained from the Quiz to increase your profits. You can buy and sell shares by clicking on the three dotted options button found next to each stock.\n\nEach session of the Market lasts for one hour after which you’ll need to begin a new session by starting the market again. Maximize your profits to earn the title of \“The Richest Man Alive\” and earn the top spot on the leader board.\n\nRemember if you hit a low on the Market you can always go back to the Quiz to raise some Capital for your future investments.</string>
 
 </resources>

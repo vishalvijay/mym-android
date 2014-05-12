@@ -70,12 +70,20 @@ public class CompanyShareAdapter extends SupportArrayAdapter<CompanyShare>
 			viewHolder = (ViewHolder) convertView.getTag();
 		CompanyShare companyShare = getItem(position);
 		viewHolder.nameTextView.setText(companyShare.getName());
-		viewHolder.priceTextView.setText(Utils.roundAndGetString(companyShare
-				.getPrice()));
+		setUpPrice(viewHolder.priceTextView,
+				Utils.roundAndGetString(companyShare.getPrice()));
 		setUpPriceeChangeTextView(viewHolder.priceChangeTextView, companyShare);
 		viewHolder.industryTextView.setText(companyShare.getIndustry());
 		viewHolder.menuImageButton.setTag(position);
 		return convertView;
+	}
+
+	private void setUpPrice(TextView textView, String roundAndGetString) {
+		if (isForSatatus)
+			textView.setText(getContext().getString(R.string.money,
+					roundAndGetString));
+		else
+			textView.setText(roundAndGetString);
 	}
 
 	private void setUpPriceeChangeTextView(TextView priceChangeTextView,
