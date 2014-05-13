@@ -92,6 +92,11 @@ public class SellCompanyShareDialogFragment extends DialogFragment implements
 	@Override
 	public void onClick(View v) {
 		long quantity = Integer.parseInt(numberEditText.getText().toString());
+		if (quantity == 0) {
+			numberEditText
+					.setError(getString(R.string.should_be_greater_than_0));
+			return;
+		}
 		activity.getUser().sellCompanyShare(getActivity(), mCompanyShare,
 				quantity);
 		dismiss();

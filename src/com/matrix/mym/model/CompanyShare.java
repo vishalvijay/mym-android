@@ -22,6 +22,10 @@ public class CompanyShare implements Parcelable, Cloneable {
 		mIndustry = industry;
 	}
 
+	public static CompanyShare getById(long id) {
+		return CompanyShareDB.getCompanyShare(id);
+	}
+
 	public String getName() {
 		return mName;
 	}

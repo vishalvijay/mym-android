@@ -61,5 +61,6 @@
     <string name="retry">Retry</string>
     <string name="leader_board_status">Hi %1$s, your rank is %2$s</string>
     <string name="name_cant_be_blank">Name can\'t be blank</string>
+    <string name="should_be_greater_than_0">Should be greater than 0</string>
 
 </resources>

@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.matrix.mym.controller.db.CompanyShareDB;
 import com.matrix.mym.controller.db.UserSharesDB;
 import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
 import com.matrix.mym.controller.interfaces.NetWorthLoader;
@@ -136,35 +135,25 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 
 	public void getMyCompanyShares(Context context,
 			final CompanyShareLoaddedCallBack callBack) {
-		CompanyShareDB.getCompanyShares(new CompanyShareLoaddedCallBack() {
+
+		new AsyncTask<Void, Void, ArrayList<CompanyShare>>() {
 
 			@Override
-			public void onComplete(final ArrayList<CompanyShare> companyShares) {
-				new AsyncTask<Void, Void, ArrayList<CompanyShare>>() {
-
-					@Override
-					protected ArrayList<CompanyShare> doInBackground(
-							Void... params) {
-						ArrayList<CompanyShare> result = new ArrayList<CompanyShare>();
-						for (CompanyShare companyShare : companyShares) {
-							for (UserShare userShare : mUserShares) {
-								if (userShare.getCompanyShareId() == companyShare
-										.getId() && userShare.getQuantity() > 0) {
-									result.add(companyShare);
-								}
-							}
-						}
-						return result;
-					}
-
-					protected void onPostExecute(
-							java.util.ArrayList<CompanyShare> result) {
-						callBack.onComplete(result);
-					};
-				}.execute();
+			protected ArrayList<CompanyShare> doInBackground(Void... params) {
+				ArrayList<CompanyShare> result = new ArrayList<CompanyShare>();
+				for (UserShare userShare : mUserShares) {
+					result.add(CompanyShare.getById(userShare
+							.getCompanyShareId()));
+				}
+				return result;
 			}
 
-		});
+			protected void onPostExecute(
+					java.util.ArrayList<CompanyShare> result) {
+				callBack.onComplete(result);
+			};
+		}.execute();
+
 	}
 
 	public static interface UserCallBacks {
@@ -196,7 +185,11 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 		if (userShare == null)
 			throw new IllegalStateException("You can't sell this CompanyShare");
 		userShare.addQuantity(-quantity);
-		userShare.update();
+		if (userShare.getQuantity() == 0) {
+			mUserShares.remove(userShare);
+			userShare.delete();
+		} else
+			userShare.update();
 		updateAccountBalance(context, companyShare.getPrice() * quantity);
 	}
 

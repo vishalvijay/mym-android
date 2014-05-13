@@ -79,6 +79,31 @@ public class CompanyShareDB {
 		}.execute();
 	}
 
+	public static CompanyShare getCompanyShare(long id) {
+		CompanyShare companyShare = null;
+		try {
+			Cursor cursor = MymDataBase.getDb().query(
+					TABLE_NAME,
+					new String[] { COL_ID, COL_NAME, COL_PRICE,
+							COL_CLOSING_PRICE, COL_INDUSTRY }, COL_ID + "=? ",
+					new String[] { id + "" }, null, null, null);
+			if (cursor.moveToNext()) {
+				String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
+				double price = cursor.getDouble(cursor
+						.getColumnIndex(COL_PRICE));
+				double closingPrice = cursor.getDouble(cursor
+						.getColumnIndex(COL_CLOSING_PRICE));
+				String industry = cursor.getString(cursor
+						.getColumnIndex(COL_INDUSTRY));
+				companyShare = new CompanyShare(id, name, price, closingPrice,
+						industry);
+			}
+			cursor.close();
+		} catch (IllegalStateException ex) {
+		}
+		return companyShare;
+	}
+
 	public static void setUpTable(SQLiteDatabase db) {
 		db.execSQL(CompanyShareDB.CREATE_TABLE);
 		inserCompanyShare(db, "Traxis Bank", 1675, "Banking");

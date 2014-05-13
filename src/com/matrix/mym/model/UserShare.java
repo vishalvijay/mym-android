@@ -78,4 +78,8 @@ public class UserShare implements Parcelable {
 			return new UserShare[size];
 		}
 	};
+
+	public void delete() {
+		UserSharesDB.delete(this);
+	}
 }

@@ -112,4 +112,15 @@ public class UserSharesDB {
 		db.execSQL(CREATE_TABLE);
 	}
 
+	public static boolean delete(UserShare userShare) {
+		long result;
+		try {
+			result = MymDataBase.getDb().delete(TABLE_NAME, COL_ID + "=? ",
+					new String[] { userShare.getId() + "" });
+		} catch (SQLException e) {
+			result = 0;
+		}
+		return result != 0;
+	}
+
 }
