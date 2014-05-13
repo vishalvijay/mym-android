@@ -12,6 +12,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -156,7 +157,11 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 	public void onPause() {
 		super.onPause();
 		if (isUnbindeService && shareMarketService != null)
-			getActivity().unbindService(mConnection);
+			try {
+				getActivity().unbindService(mConnection);
+			} catch (Exception ex) {
+				Log.e(TAG, ex.getMessage());
+			}
 		if (timeCounter != null)
 			timeCounter.cancel();
 	}

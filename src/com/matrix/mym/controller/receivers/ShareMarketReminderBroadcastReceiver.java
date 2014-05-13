@@ -14,7 +14,7 @@ import com.matrix.mym.R;
 import com.matrix.mym.utils.Constance;
 import com.matrix.mym.utils.Settings;
 import com.matrix.mym.utils.Utils;
-import com.matrix.mym.view.activity.MymMainActivity;
+import com.matrix.mym.view.activity.SplashScreenActivity;
 
 public class ShareMarketReminderBroadcastReceiver extends BroadcastReceiver {
 
@@ -25,7 +25,7 @@ public class ShareMarketReminderBroadcastReceiver extends BroadcastReceiver {
 		Utils.showNotification(Constance.REMINDER_NOTIFICATION_ID,
 				context.getString(R.string.app_name),
 				context.getString(R.string.remaining_time),
-				R.drawable.ic_action_time, context, MymMainActivity.class);
+				R.drawable.ic_action_time, context, SplashScreenActivity.class);
 	}
 
 	@TargetApi(Build.VERSION_CODES.KITKAT)

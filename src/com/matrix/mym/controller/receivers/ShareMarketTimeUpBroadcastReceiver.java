@@ -16,7 +16,7 @@ import com.matrix.mym.controller.service.ShareMarketService;
 import com.matrix.mym.utils.Constance;
 import com.matrix.mym.utils.Settings;
 import com.matrix.mym.utils.Utils;
-import com.matrix.mym.view.activity.MymMainActivity;
+import com.matrix.mym.view.activity.SplashScreenActivity;
 
 public class ShareMarketTimeUpBroadcastReceiver extends BroadcastReceiver {
 
@@ -33,7 +33,7 @@ public class ShareMarketTimeUpBroadcastReceiver extends BroadcastReceiver {
 		Utils.showNotification(Constance.REMINDER_NOTIFICATION_ID,
 				context.getString(R.string.app_name),
 				context.getString(R.string.share_market_closed),
-				R.drawable.ic_action_time, context, MymMainActivity.class);
+				R.drawable.ic_action_time, context, SplashScreenActivity.class);
 	}
 
 	@TargetApi(Build.VERSION_CODES.KITKAT)
