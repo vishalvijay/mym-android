@@ -37,7 +37,7 @@
     <string name="congratzz">Congratzz!</string>
     <string name="currect_answer_message">%1$s * %2$s = Rs %3$s/- added to your account.\nKeep going</string>
     <string name="wrong_answer">Ooh&#8230; wrong answer</string>
-    <string name="currect_answer_is">Currect answer is \'%s\'.\nTry next time</string>
+    <string name="currect_answer_is">Correct answer is \'%s\'.\nTry next time</string>
     <string name="buy">Buy</string>
     <string name="sell">Sell</string>
     <string name="current_price">Current price is Rs %s/-</string>
