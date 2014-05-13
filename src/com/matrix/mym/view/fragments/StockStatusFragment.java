@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 
 import com.matrix.mym.R;
 import com.matrix.mym.controller.adapter.CompanyShareAdapter;
-import com.matrix.mym.controller.db.MymDataBase;
+import com.matrix.mym.controller.db.CompanyShareDB;
 import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
 import com.matrix.mym.model.CompanyShare;
 
@@ -47,7 +47,7 @@ public class StockStatusFragment extends MymMainFragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		MymDataBase.getAllCompanyShares(getActivity(), this);
+		CompanyShareDB.getCompanyShares(this);
 	}
 
 	@Override

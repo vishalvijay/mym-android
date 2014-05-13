@@ -6,7 +6,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 
+import com.matrix.mym.controller.interfaces.UserShareLoadedCallBack;
 import com.matrix.mym.model.UserShare;
 
 public class UserSharesDB {
@@ -22,58 +24,65 @@ public class UserSharesDB {
 			+ ") REFERENCES " + CompanyShareDB.TABLE_NAME + " ("
 			+ CompanyShareDB.COL_ID + ") ON DELETE CASCADE ON UPDATE CASCADE);";
 
-	private DatabaseHelper mDatabaseHelper;
-
-	public UserSharesDB(DatabaseHelper databaseHelper) {
-		mDatabaseHelper = databaseHelper;
-	}
-
-	synchronized public long saveUserShare(UserShare userShare) {
+	public static long save(UserShare userShare) {
 		long result;
 		try {
 			ContentValues contentValues = new ContentValues();
 			contentValues.put(COL_COMPANY_SHARE_ID,
 					userShare.getCompanyShareId());
 			contentValues.put(COL_QUANTITY, userShare.getQuantity());
-			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
-			result = db.insertOrThrow(TABLE_NAME, COL_ID, contentValues);
-			db.close();
+			result = MymDataBase.getDb().insertOrThrow(TABLE_NAME, COL_ID,
+					contentValues);
 		} catch (SQLException e) {
 			result = -1;
 		}
 		return result;
 	}
 
-	synchronized public ArrayList<UserShare> getUserShares() {
-		ArrayList<UserShare> userShares = new ArrayList<UserShare>();
-		try {
-			SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-			Cursor cursor = db.query(TABLE_NAME, new String[] { COL_ID,
-					COL_COMPANY_SHARE_ID, COL_QUANTITY }, null, null, null,
-					null, COL_ID);
-			while (cursor.moveToNext()) {
-				long id = cursor.getLong(cursor.getColumnIndex(COL_ID));
-				long companyShareId = cursor.getLong(cursor
-						.getColumnIndex(COL_COMPANY_SHARE_ID));
-				long quantity = cursor.getLong(cursor
-						.getColumnIndex(COL_QUANTITY));
-				userShares.add(new UserShare(id, companyShareId, quantity));
+	public static void getUserShares(final UserShareLoadedCallBack callBack) {
+		new AsyncTask<Void, Void, ArrayList<UserShare>>() {
+
+			@Override
+			protected ArrayList<UserShare> doInBackground(Void... params) {
+				ArrayList<UserShare> userShares = new ArrayList<UserShare>();
+				try {
+					Cursor cursor = MymDataBase.getDb().query(
+							TABLE_NAME,
+							new String[] { COL_ID, COL_COMPANY_SHARE_ID,
+									COL_QUANTITY }, null, null, null, null,
+							COL_ID);
+					while (cursor.moveToNext()) {
+						long id = cursor.getLong(cursor.getColumnIndex(COL_ID));
+						long companyShareId = cursor.getLong(cursor
+								.getColumnIndex(COL_COMPANY_SHARE_ID));
+						long quantity = cursor.getLong(cursor
+								.getColumnIndex(COL_QUANTITY));
+						userShares.add(new UserShare(id, companyShareId,
+								quantity));
+					}
+					cursor.close();
+				} catch (IllegalStateException ex) {
+				}
+				return userShares;
 			}
-			cursor.close();
-			db.close();
-		} catch (IllegalStateException ex) {
-		}
-		return userShares;
+
+			protected void onPostExecute(ArrayList<UserShare> result) {
+				callBack.onComplete(result);
+			};
+
+		}.execute();
 	}
 
-	synchronized public UserShare getUserShare(long companyShareId) {
+	public static UserShare getUserShare(long companyShareId) {
 		UserShare userShare = null;
 		try {
-			SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-			Cursor cursor = db.query(TABLE_NAME, new String[] { COL_ID,
-					COL_COMPANY_SHARE_ID, COL_QUANTITY }, COL_COMPANY_SHARE_ID
-					+ "=? ", new String[] { companyShareId + "" }, null, null,
-					null);
+			Cursor cursor = MymDataBase.getDb()
+					.query(TABLE_NAME,
+							new String[] { COL_ID, COL_COMPANY_SHARE_ID,
+									COL_QUANTITY },
+							COL_COMPANY_SHARE_ID + "=? ",
+							new String[] { companyShareId + "" }, null, null,
+							null);
 			if (cursor.moveToNext()) {
 				long id = cursor.getLong(cursor.getColumnIndex(COL_ID));
 				long quantity = cursor.getLong(cursor
@@ -81,21 +90,18 @@ public class UserSharesDB {
 				userShare = new UserShare(id, companyShareId, quantity);
 			}
 			cursor.close();
-			db.close();
 		} catch (IllegalStateException ex) {
 		}
 		return userShare;
 	}
 
-	synchronized public boolean updatePrice(UserShare userShare) {
+	public static boolean update(UserShare userShare) {
 		long result;
 		try {
 			ContentValues contentValues = new ContentValues();
 			contentValues.put(COL_QUANTITY, userShare.getQuantity());
-			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
-			result = db.update(TABLE_NAME, contentValues, COL_ID + "=? ",
-					new String[] { userShare.getId() + "" });
-			db.close();
+			result = MymDataBase.getDb().update(TABLE_NAME, contentValues,
+					COL_ID + "=? ", new String[] { userShare.getId() + "" });
 		} catch (SQLException e) {
 			result = 0;
 		}

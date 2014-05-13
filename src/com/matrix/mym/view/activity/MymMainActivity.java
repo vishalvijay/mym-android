@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.Window;
 
 import com.matrix.mym.R;
-import com.matrix.mym.controller.db.MymDataBase;
 import com.matrix.mym.model.Quiz;
 import com.matrix.mym.model.User;
 import com.matrix.mym.utils.GoogleAnalyticsManager;
@@ -109,12 +108,6 @@ public class MymMainActivity extends ActionBarActivity implements
 			return true;
 		}
 		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		MymDataBase.closeDb();
 	}
 
 	public User getUser() {

@@ -26,19 +26,14 @@ public class QuizDB {
 			+ " VARCHAR(50), " + COL_OPTION4 + " VARCHAR(50), " + COL_ANSWER
 			+ " INTEGER NOT NULL, " + COL_TYPE + " INTEGER NOT NULL " + ");";
 
-	private DatabaseHelper mDatabaseHelper;
-
-	public QuizDB(DatabaseHelper databaseHelper) {
-		mDatabaseHelper = databaseHelper;
-	}
-
-	synchronized public Quiz getQuizById(long id) {
+	public static Quiz getQuiz(long id) {
 		Quiz quiz = null;
 		try {
-			SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-			Cursor cursor = db.query(TABLE_NAME, new String[] { COL_ID,
-					COL_QUESTION, COL_OPTION1, COL_OPTION2, COL_OPTION3,
-					COL_OPTION4, COL_ANSWER, COL_TYPE }, COL_ID + "=? ",
+			Cursor cursor = MymDataBase.getDb().query(
+					TABLE_NAME,
+					new String[] { COL_ID, COL_QUESTION, COL_OPTION1,
+							COL_OPTION2, COL_OPTION3, COL_OPTION4, COL_ANSWER,
+							COL_TYPE }, COL_ID + "=? ",
 					new String[] { id + "" }, null, null, null);
 			if (cursor.moveToNext()) {
 				String question = cursor.getString(cursor
@@ -53,7 +48,6 @@ public class QuizDB {
 				quiz = new Quiz(id, question, options, answer, type);
 			}
 			cursor.close();
-			db.close();
 		} catch (IllegalStateException ex) {
 		}
 		return quiz;

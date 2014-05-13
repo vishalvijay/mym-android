@@ -8,7 +8,6 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.matrix.mym.controller.ShareMarketManager;
-import com.matrix.mym.controller.db.MymDataBase;
 import com.matrix.mym.controller.interfaces.ShareMarketServiceCallBacks;
 import com.matrix.mym.model.CompanyShare;
 import com.matrix.mym.utils.Settings;
@@ -22,8 +21,7 @@ public class ShareMarketService extends Service implements
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		mShareMarketManager = new ShareMarketManager(getApplicationContext(),
-				this);
+		mShareMarketManager = new ShareMarketManager(this);
 		return Service.START_STICKY;
 	}
 
@@ -68,7 +66,6 @@ public class ShareMarketService extends Service implements
 	public void onDestroy() {
 		if (mShareMarketManager != null)
 			mShareMarketManager.stopShareMarket();
-		MymDataBase.closeDb();
 		Settings.setShareMarketStartedStatus(getApplicationContext(), false);
 		super.onDestroy();
 	}

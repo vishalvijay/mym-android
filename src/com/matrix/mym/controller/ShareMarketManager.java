@@ -3,10 +3,9 @@ package com.matrix.mym.controller;
 import java.util.ArrayList;
 import java.util.Random;
 
-import android.content.Context;
 import android.os.Handler;
 
-import com.matrix.mym.controller.db.MymDataBase;
+import com.matrix.mym.controller.db.CompanyShareDB;
 import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
 import com.matrix.mym.controller.interfaces.ShareMarketServiceCallBacks;
 import com.matrix.mym.model.CompanyShare;
@@ -15,17 +14,15 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 	protected static final int TIME_LIMIT = 5000;
 	protected static final String TAG = "ShareMarketManager";
 	private ArrayList<CompanyShare> mCompanyShares;
-	private Context context;
 	private ShareMarketServiceCallBacks shareMarketServiceCallBacks;
 	private boolean isLoaded = false;
 	private boolean isPriceChanging = false;
 	private Thread thread;
 
-	public ShareMarketManager(Context context,
+	public ShareMarketManager(
 			ShareMarketServiceCallBacks shareMarkerServiceCallBacks) {
-		this.context = context;
 		this.shareMarketServiceCallBacks = shareMarkerServiceCallBacks;
-		MymDataBase.getAllCompanyShares(this.context, this);
+		CompanyShareDB.getCompanyShares(this);
 	}
 
 	public void startShareMarket() {
@@ -50,9 +47,8 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 								.nextInt(mCompanyShares.size()));
 						double priceChange = (random.nextDouble() % companyShare
 								.getPrice()) * 0.1;
-						companyShare.addPrice(context,
-								random.nextBoolean() ? priceChange
-										: -priceChange);
+						companyShare.addPrice(random.nextBoolean() ? priceChange
+								: -priceChange);
 					}
 					handler.post(new Runnable() {
 
@@ -68,7 +64,7 @@ public class ShareMarketManager implements CompanyShareLoaddedCallBack {
 					}
 				}
 				for (CompanyShare companyShare : mCompanyShares) {
-					companyShare.close(context);
+					companyShare.close();
 				}
 			}
 		});

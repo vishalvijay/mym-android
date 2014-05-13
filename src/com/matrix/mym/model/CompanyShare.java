@@ -1,10 +1,9 @@
 package com.matrix.mym.model;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.matrix.mym.controller.db.MymDataBase;
+import com.matrix.mym.controller.db.CompanyShareDB;
 
 public class CompanyShare implements Parcelable, Cloneable {
 	public static final String STATE = "company_share";
@@ -43,9 +42,9 @@ public class CompanyShare implements Parcelable, Cloneable {
 		return mClosingPrice;
 	}
 
-	public void addPrice(Context context, double priceChange) {
+	public void addPrice(double priceChange) {
 		mPrice += priceChange;
-		MymDataBase.updateCompanyShare(context, this);
+		CompanyShareDB.update(this);
 	}
 
 	@Override
@@ -103,8 +102,8 @@ public class CompanyShare implements Parcelable, Cloneable {
 		}
 	}
 
-	public void close(Context context) {
+	public void close() {
 		mClosingPrice = mPrice;
-		MymDataBase.updateCompanyShare(context, this);
+		CompanyShareDB.update(this);
 	}
 }

@@ -29,6 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		dropTable(db, CompanyShareDB.TABLE_NAME);
 		dropTable(db, UserSharesDB.TABLE_NAME);
+		dropTable(db, QuizDB.TABLE_NAME);
 		onCreate(db);
 	}
 

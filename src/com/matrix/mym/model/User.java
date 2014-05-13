@@ -7,7 +7,8 @@ import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.matrix.mym.controller.db.MymDataBase;
+import com.matrix.mym.controller.db.CompanyShareDB;
+import com.matrix.mym.controller.db.UserSharesDB;
 import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
 import com.matrix.mym.controller.interfaces.NetWorthLoader;
 import com.matrix.mym.controller.interfaces.UserShareLoadedCallBack;
@@ -21,9 +22,9 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 	private boolean isLoaded = false;
 	private UserCallBacks userCallBacks;
 
-	public User(Context context, UserShareLoadedCallBack userShareLoadedCallBack) {
+	public User(UserShareLoadedCallBack userShareLoadedCallBack) {
 		this.userShareLoadedCallBack = userShareLoadedCallBack;
-		MymDataBase.getAllUserShares(context, this);
+		UserSharesDB.getUserShares(this);
 	}
 
 	@Override
@@ -71,11 +72,11 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 		UserShare oldUserShare = findUserShare(companyShare);
 		if (oldUserShare == null) {
 			oldUserShare = new UserShare(companyShare.getId(), quantity);
-			oldUserShare.save(context);
+			oldUserShare.save();
 			mUserShares.add(oldUserShare);
 		} else {
 			oldUserShare.addQuantity(quantity);
-			oldUserShare.update(context);
+			oldUserShare.update();
 		}
 		updateAccountBalance(context, -companyShare.getPrice() * quantity);
 	}
@@ -135,38 +136,35 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 
 	public void getMyCompanyShares(Context context,
 			final CompanyShareLoaddedCallBack callBack) {
-		MymDataBase.getAllCompanyShares(context,
-				new CompanyShareLoaddedCallBack() {
+		CompanyShareDB.getCompanyShares(new CompanyShareLoaddedCallBack() {
+
+			@Override
+			public void onComplete(final ArrayList<CompanyShare> companyShares) {
+				new AsyncTask<Void, Void, ArrayList<CompanyShare>>() {
 
 					@Override
-					public void onComplete(
-							final ArrayList<CompanyShare> companyShares) {
-						new AsyncTask<Void, Void, ArrayList<CompanyShare>>() {
-
-							@Override
-							protected ArrayList<CompanyShare> doInBackground(
-									Void... params) {
-								ArrayList<CompanyShare> result = new ArrayList<CompanyShare>();
-								for (CompanyShare companyShare : companyShares) {
-									for (UserShare userShare : mUserShares) {
-										if (userShare.getCompanyShareId() == companyShare
-												.getId()
-												&& userShare.getQuantity() > 0) {
-											result.add(companyShare);
-										}
-									}
+					protected ArrayList<CompanyShare> doInBackground(
+							Void... params) {
+						ArrayList<CompanyShare> result = new ArrayList<CompanyShare>();
+						for (CompanyShare companyShare : companyShares) {
+							for (UserShare userShare : mUserShares) {
+								if (userShare.getCompanyShareId() == companyShare
+										.getId() && userShare.getQuantity() > 0) {
+									result.add(companyShare);
 								}
-								return result;
 							}
-
-							protected void onPostExecute(
-									java.util.ArrayList<CompanyShare> result) {
-								callBack.onComplete(result);
-							};
-						}.execute();
+						}
+						return result;
 					}
 
-				});
+					protected void onPostExecute(
+							java.util.ArrayList<CompanyShare> result) {
+						callBack.onComplete(result);
+					};
+				}.execute();
+			}
+
+		});
 	}
 
 	public static interface UserCallBacks {
@@ -198,7 +196,7 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 		if (userShare == null)
 			throw new IllegalStateException("You can't sell this CompanyShare");
 		userShare.addQuantity(-quantity);
-		userShare.update(context);
+		userShare.update();
 		updateAccountBalance(context, companyShare.getPrice() * quantity);
 	}
 

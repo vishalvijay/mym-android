@@ -105,7 +105,9 @@ public class LeaderBoardFragment extends MymMainFragment implements
 
 	@Override
 	public void onLoadingFinsh(ArrayList<LeaderBoardUser> leaderBoardUsers) {
-		leaderBoardListView.setAdapter(new LeaderBoardAdapter(getActivity(),
+		if (!isAdded())
+			return;
+		leaderBoardListView.setAdapter(new LeaderBoardAdapter(activity,
 				leaderBoardUsers));
 		leadeBoardLinearLayout.setVisibility(View.VISIBLE);
 		progressBar.setVisibility(View.GONE);

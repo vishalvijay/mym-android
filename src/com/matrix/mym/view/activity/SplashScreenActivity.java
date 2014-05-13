@@ -21,7 +21,7 @@ public class SplashScreenActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_spash_screen);
-		mUser = new User(getApplicationContext(), this);
+		mUser = new User(this);
 	}
 
 	@Override

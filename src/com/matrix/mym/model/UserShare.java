@@ -1,10 +1,9 @@
 package com.matrix.mym.model;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.matrix.mym.controller.db.MymDataBase;
+import com.matrix.mym.controller.db.UserSharesDB;
 
 public class UserShare implements Parcelable {
 	private long mId;
@@ -38,16 +37,16 @@ public class UserShare implements Parcelable {
 		mQuantity += quantity;
 	}
 
-	public void save(Context context) {
-		mId = MymDataBase.saveUserShare(context, this);
+	public void save() {
+		mId = UserSharesDB.save(this);
 	}
 
-	public void update(Context context) {
-		MymDataBase.updateUserShare(context, this);
+	public void update() {
+		UserSharesDB.update(this);
 	}
 
-	public static UserShare getInstance(Context context, long companyShareId) {
-		return MymDataBase.getUserShare(context, companyShareId);
+	public static UserShare getInstance(long companyShareId) {
+		return UserSharesDB.getUserShare(companyShareId);
 	}
 
 	@Override

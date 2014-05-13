@@ -6,7 +6,7 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.matrix.mym.controller.db.MymDataBase;
+import com.matrix.mym.controller.db.QuizDB;
 import com.matrix.mym.utils.Settings;
 
 public class Quiz implements Parcelable {
@@ -63,7 +63,7 @@ public class Quiz implements Parcelable {
 	}
 
 	public static Quiz getCurrentQuiz(Context context) {
-		return MymDataBase.getQuiz(context, Settings.getCurrentQuiz(context));
+		return QuizDB.getQuiz(Settings.getCurrentQuiz(context));
 	}
 
 	public static void moveToNextQuiz(Context context, Quiz currentQuiz) {
@@ -72,7 +72,7 @@ public class Quiz implements Parcelable {
 		else
 			Settings.setSpree(context, 1);
 		long next = Settings.getCurrentQuiz(context) + 1;
-		Quiz quiz = MymDataBase.getQuiz(context, next);
+		Quiz quiz = QuizDB.getQuiz(next);
 		if (quiz == null)
 			next = 0;
 		Settings.setCurrentQuiz(context, next);

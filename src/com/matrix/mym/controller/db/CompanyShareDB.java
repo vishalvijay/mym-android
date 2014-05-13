@@ -6,7 +6,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 
+import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
 import com.matrix.mym.model.CompanyShare;
 
 public class CompanyShareDB {
@@ -23,53 +25,58 @@ public class CompanyShareDB {
 			+ COL_CLOSING_PRICE + " REAL NOT NULL, " + COL_INDUSTRY
 			+ " VARCHAR(128) NOT NULL);";
 
-	private DatabaseHelper mDatabaseHelper;
-
-	public CompanyShareDB(DatabaseHelper databaseHelper) {
-		mDatabaseHelper = databaseHelper;
-	}
-
-	synchronized public boolean update(CompanyShare companyShare) {
+	public static boolean update(CompanyShare companyShare) {
 		long result;
 		try {
 			ContentValues contentValues = new ContentValues();
 			contentValues
 					.put(COL_CLOSING_PRICE, companyShare.getClosingPrice());
 			contentValues.put(COL_PRICE, companyShare.getPrice());
-			SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
-			result = db.update(TABLE_NAME, contentValues, COL_ID + "=? ",
-					new String[] { companyShare.getId() + "" });
-			db.close();
+			result = MymDataBase.getDb().update(TABLE_NAME, contentValues,
+					COL_ID + "=? ", new String[] { companyShare.getId() + "" });
 		} catch (SQLException e) {
 			result = 0;
 		}
 		return result != 0;
 	}
 
-	synchronized public ArrayList<CompanyShare> getCompanyShares() {
-		ArrayList<CompanyShare> companyShares = new ArrayList<CompanyShare>();
-		try {
-			SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
-			Cursor cursor = db.query(TABLE_NAME, new String[] { COL_ID,
-					COL_NAME, COL_PRICE, COL_CLOSING_PRICE, COL_INDUSTRY },
-					null, null, null, null, COL_ID);
-			while (cursor.moveToNext()) {
-				long id = cursor.getLong(cursor.getColumnIndex(COL_ID));
-				String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
-				double price = cursor.getDouble(cursor
-						.getColumnIndex(COL_PRICE));
-				double closingPrice = cursor.getDouble(cursor
-						.getColumnIndex(COL_CLOSING_PRICE));
-				String industry = cursor.getString(cursor
-						.getColumnIndex(COL_INDUSTRY));
-				companyShares.add(new CompanyShare(id, name, price,
-						closingPrice, industry));
+	public static void getCompanyShares(
+			final CompanyShareLoaddedCallBack callBack) {
+		new AsyncTask<Void, Void, ArrayList<CompanyShare>>() {
+
+			@Override
+			protected ArrayList<CompanyShare> doInBackground(Void... params) {
+				ArrayList<CompanyShare> companyShares = new ArrayList<CompanyShare>();
+				try {
+					Cursor cursor = MymDataBase.getDb().query(
+							TABLE_NAME,
+							new String[] { COL_ID, COL_NAME, COL_PRICE,
+									COL_CLOSING_PRICE, COL_INDUSTRY }, null,
+							null, null, null, COL_ID);
+					while (cursor.moveToNext()) {
+						long id = cursor.getLong(cursor.getColumnIndex(COL_ID));
+						String name = cursor.getString(cursor
+								.getColumnIndex(COL_NAME));
+						double price = cursor.getDouble(cursor
+								.getColumnIndex(COL_PRICE));
+						double closingPrice = cursor.getDouble(cursor
+								.getColumnIndex(COL_CLOSING_PRICE));
+						String industry = cursor.getString(cursor
+								.getColumnIndex(COL_INDUSTRY));
+						companyShares.add(new CompanyShare(id, name, price,
+								closingPrice, industry));
+					}
+					cursor.close();
+				} catch (IllegalStateException ex) {
+				}
+				return companyShares;
 			}
-			cursor.close();
-			db.close();
-		} catch (IllegalStateException ex) {
-		}
-		return companyShares;
+
+			protected void onPostExecute(ArrayList<CompanyShare> result) {
+				callBack.onComplete(result);
+			};
+
+		}.execute();
 	}
 
 	public static void setUpTable(SQLiteDatabase db) {
