@@ -37,6 +37,7 @@
         <item name="android:dividerHeight">@dimen/common_padding</item>
         <item name="android:scrollbarStyle">outsideOverlay</item>
         <item name="android:background">@drawable/main_background</item>
+        <item name="android:listSelector">@drawable/mym_list_selector_holo_light</item>
     </style>
 
     <style name="market_status" parent="@style/base_view">
