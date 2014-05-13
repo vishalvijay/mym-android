@@ -24,7 +24,9 @@
         android:left="@dimen/common_padding"
         android:right="@dimen/common_padding"
         android:top="@dimen/common_padding">
-        <shape android:shape="rectangle" />
+        <shape android:shape="rectangle" >
+            <solid android:color="@color/white" />
+        </shape>
     </item>
 
 </layer-list>
