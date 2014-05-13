@@ -17,6 +17,7 @@ import com.matrix.mym.utils.GoogleAnalyticsManager;
 import com.matrix.mym.view.fragments.AboutFragment;
 import com.matrix.mym.view.fragments.HelpFragment;
 import com.matrix.mym.view.fragments.LeaderBoardFragment;
+import com.matrix.mym.view.fragments.MySharesFragment;
 import com.matrix.mym.view.fragments.NavigationDrawerFragment;
 import com.matrix.mym.view.fragments.QuizFragment;
 import com.matrix.mym.view.fragments.StockStatusFragment;
@@ -72,12 +73,15 @@ public class MymMainActivity extends ActionBarActivity implements
 			fragment = new StockStatusFragment();
 			break;
 		case 3:
-			fragment = new LeaderBoardFragment();
+			fragment = new MySharesFragment();
 			break;
 		case 4:
-			fragment = new HelpFragment();
+			fragment = new LeaderBoardFragment();
 			break;
 		case 5:
+			fragment = new HelpFragment();
+			break;
+		case 6:
 			fragment = new AboutFragment();
 			break;
 		}

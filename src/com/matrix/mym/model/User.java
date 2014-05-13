@@ -3,10 +3,13 @@ package com.matrix.mym.model;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.matrix.mym.controller.db.MymDataBase;
+import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
+import com.matrix.mym.controller.interfaces.NetWorthLoader;
 import com.matrix.mym.controller.interfaces.UserShareLoadedCallBack;
 import com.matrix.mym.utils.Settings;
 
@@ -113,8 +116,56 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 		}
 	};
 
-	public double getNetBalance(Context context) {
-		return 0;
+	public void getNetBalance(final Context context,
+			final NetWorthLoader netWorthLoader) {
+		getMyCompanyShares(context, new CompanyShareLoaddedCallBack() {
+
+			@Override
+			public void onComplete(ArrayList<CompanyShare> companyShares) {
+				double result = 0;
+				for (int i = 0; i < companyShares.size(); i++) {
+					result += companyShares.get(i).getPrice()
+							* mUserShares.get(i).getQuantity();
+				}
+				netWorthLoader.onComplete(result + getAccountBalance(context));
+			}
+		});
+	}
+
+	public void getMyCompanyShares(Context context,
+			final CompanyShareLoaddedCallBack callBack) {
+		MymDataBase.getAllCompanyShares(context,
+				new CompanyShareLoaddedCallBack() {
+
+					@Override
+					public void onComplete(
+							final ArrayList<CompanyShare> companyShares) {
+						new AsyncTask<Void, Void, ArrayList<CompanyShare>>() {
+
+							@Override
+							protected ArrayList<CompanyShare> doInBackground(
+									Void... params) {
+								ArrayList<CompanyShare> result = new ArrayList<CompanyShare>();
+								for (CompanyShare companyShare : companyShares) {
+									for (UserShare userShare : mUserShares) {
+										if (userShare.getCompanyShareId() == companyShare
+												.getId()
+												&& userShare.getQuantity() > 0) {
+											result.add(companyShare);
+										}
+									}
+								}
+								return result;
+							}
+
+							protected void onPostExecute(
+									java.util.ArrayList<CompanyShare> result) {
+								callBack.onComplete(result);
+							};
+						}.execute();
+					}
+
+				});
 	}
 
 	public static interface UserCallBacks {
@@ -148,5 +199,15 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 		userShare.addQuantity(-quantity);
 		userShare.update(context);
 		updateAccountBalance(context, companyShare.getPrice() * quantity);
+	}
+
+	public String getUuid(Context context) {
+		return "";
+		// TODO
+	}
+
+	public String getName(Context context) {
+		return "";
+		// TODO
 	}
 }

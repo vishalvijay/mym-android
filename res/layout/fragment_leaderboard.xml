@@ -1,14 +1,42 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background"
+    android:orientation="vertical"
     tools:context="com.matrix.mym.view.fragments.LeaderBoardFragment" >
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tvStatus"
+        style="@style/normal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/leaderboard" />
+        android:background="@drawable/status_background" />
 
-</RelativeLayout>
+    <ListView
+        android:id="@+id/lvLeaderBoard"
+        style="@style/card_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/name" />
+
+        <ImageButton
+            android:id="@+id/ibSave"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/save"
+            android:src="@drawable/ic_action_send_now" />
+    </LinearLayout>
+
+</LinearLayout>

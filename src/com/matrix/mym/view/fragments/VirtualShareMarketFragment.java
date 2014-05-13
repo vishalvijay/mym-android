@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.matrix.mym.R;
 import com.matrix.mym.controller.adapter.CompanyShareAdapter;
+import com.matrix.mym.controller.interfaces.NetWorthLoader;
 import com.matrix.mym.controller.interfaces.ShareMarketServiceCallBacks;
 import com.matrix.mym.controller.receivers.ShareMarketReminderBroadcastReceiver;
 import com.matrix.mym.controller.receivers.ShareMarketTimeUpBroadcastReceiver;
@@ -201,7 +202,7 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 
 	private void updateBalances() {
 		balanceTextView.setText(getBalance());
-		netTextView.setText(getNetBalance());
+		setNetBalance();
 	}
 
 	private void doShareMarketNotStarted() {
@@ -217,12 +218,16 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 			marketStatusTextView.setText(R.string.market_never_started);
 	}
 
-	private String getNetBalance() {
-		String rsString = getString(
-				R.string.money,
-				Utils.roundAndGetString(activity.getUser().getNetBalance(
-						getActivity())));
-		return getString(R.string.net_balance, rsString);
+	private String setNetBalance() {
+		activity.getUser().getNetBalance(getActivity(), new NetWorthLoader() {
+
+			@Override
+			public void onComplete(double money) {
+				netTextView.setText(getString(R.string.net_balance,
+						Utils.roundAndGetString(money)));
+			}
+		});
+		return "";
 	}
 
 	private String getBalance() {
@@ -254,6 +259,6 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		activity.getUser().registerUserCallBack(this);
+		activity.getUser().unRegisterUserCallBack();
 	}
 }

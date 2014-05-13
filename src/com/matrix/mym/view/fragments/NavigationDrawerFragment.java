@@ -26,6 +26,7 @@ import android.widget.ListView;
 import com.matrix.mym.R;
 import com.matrix.mym.controller.adapter.MenuListAdapter;
 import com.matrix.mym.model.NavMenuItem;
+import com.matrix.mym.utils.SystemFeatureChecker;
 
 public class NavigationDrawerFragment extends Fragment {
 	private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
@@ -91,6 +92,9 @@ public class NavigationDrawerFragment extends Fragment {
 		navMenuItems.add(navMenuItem);
 		navMenuItem = new NavMenuItem(getString(R.string.stock_status),
 				R.drawable.ic_action_cast);
+		navMenuItems.add(navMenuItem);
+		navMenuItem = new NavMenuItem(getString(R.string.my_shares),
+				R.drawable.ic_action_person);
 		navMenuItems.add(navMenuItem);
 		navMenuItem = new NavMenuItem(getString(R.string.leaderboard),
 				R.drawable.ic_action_group);
@@ -220,6 +224,12 @@ public class NavigationDrawerFragment extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		} else if (item.getItemId() == R.id.menu_rate) {
+			SystemFeatureChecker.rateAppOnPlayStore(getActivity());
+			return true;
+		} else if (item.getItemId() == R.id.menu_feedback) {
+			SystemFeatureChecker.sendFeedback(getActivity());
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

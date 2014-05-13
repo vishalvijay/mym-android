@@ -122,4 +122,15 @@
         <item name="android:background">@drawable/card</item>
     </style>
 
+    <style name="leader">
+        <item name="android:background">@color/navmenu_bg</item>
+        <item name="android:padding">@dimen/double_common_padding</item>
+    </style>
+
+    <style name="info">
+        <item name="android:paddingLeft">@dimen/common_padding</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">@color/share_positive</item>
+    </style>
+
 </resources>

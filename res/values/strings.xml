@@ -13,6 +13,7 @@
     <string name="leaderboard">Leaderboard</string>
     <string name="help">Help</string>
     <string name="stock_status">Stock status</string>
+    <string name="my_shares">My Shares</string>
     <string name="developer">Team Matrix</string>
     <string name="version">Version : %s</string>
     <string name="feedback_mail_subject">Feedback of %s android app</string>
@@ -26,7 +27,7 @@
     <string name="market_never_started">Market never started</string>
     <string name="market_closed_at">Market closed at %s</string>
     <string name="balance">Balance : %s</string>
-    <string name="net_balance">Net worth : %s</string>
+    <string name="net_balance">Net worth : Rs %s/-</string>
     <string name="time_up">Time Up</string>
     <string name="market_will_close_at">Market will close at %s</string>
     <string name="start_share_market">Start share market</string>
@@ -53,5 +54,10 @@
     <string name="quiz_help">The Quiz is a means to obtain money to trade with. You can access the Quiz anytime to increase your capital. You can obtain money by answering the questions correctly. You are given Rs 500/- for a correct answer. If you can give the right answers to the questions in an unbroken stretch then you will be awarded that particular question with a multiple of the spree.\n\n<b>For Example:</b> The first correct answer will fetch you Rs 500/-. If you answer the next one correct then you are awarded a sum of 2 * Rs 500/- = Rs 1000/-, for the second question. If you get 3 in a row the third question will contain a value of 3 * Rs 500/- = Rs 1500/- and so on.\n\nIf you give a wrong answer the flow is broken and you start from Rs 500/- for each question.</string>
     <string name="the_market_help">The Market is where you prove your skills as an investor. Utilize the funds you obtained from the Quiz to increase your profits. You can buy and sell shares by clicking on the three dotted options button found next to each stock.\n\nEach session of the Market lasts for one hour after which you’ll need to begin a new session by starting the market again. Maximize your profits to earn the title of \“The Richest Man Alive\” and earn the top spot on the leader board.\n\nRemember if you hit a low on the Market you can always go back to the Quiz to raise some Capital for your future investments.</string>
     <string name="welcome">Welcome</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="profile_pic">Profile picture</string>
+    <string name="the_richest_man_alive">The Richest Man Alive</string>
+    <string name="you_don_apos_t_have_any_shares">You don\'t have any shares</string>
 
 </resources>
