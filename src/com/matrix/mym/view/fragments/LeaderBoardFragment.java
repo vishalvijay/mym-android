@@ -115,18 +115,24 @@ public class LeaderBoardFragment extends MymMainFragment implements
 
 	@Override
 	public void onLoadingStarted() {
+		if (!isAdded())
+			return;
 		leadeBoardLinearLayout.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
 	}
 
 	@Override
 	public void onLoadingFailier() {
+		if (!isAdded())
+			return;
 		progressBar.setVisibility(View.GONE);
 		retryButton.setVisibility(View.VISIBLE);
 	}
 
 	@Override
 	public void onLoadingFinsh(LeaderBoardUser leaderBoardUser) {
+		if (!isAdded())
+			return;
 		String status = String.format(getString(R.string.leader_board_status),
 				leaderBoardUser.getName(), leaderBoardUser.getRank());
 		stausTextView.setText(status);

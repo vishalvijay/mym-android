@@ -253,6 +253,8 @@ public class VirtualShareMarketFragment extends MymMainFragment implements
 
 	@Override
 	public void onUserPriceChange() {
+		if (!isAdded())
+			return;
 		updateBalances();
 	}
 
