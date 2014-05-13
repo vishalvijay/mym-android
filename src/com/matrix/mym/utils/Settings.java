@@ -13,6 +13,7 @@ public class Settings {
 	private static String PREFS_MARKET_STARTED_TIME = "market_started_time";
 	private static String PREFS_CURRENT_QUIZ = "current_quiz";
 	private static String PREFS_SPREE = "spree";
+	private static String PREFS_USER_NAME = "user_name";
 
 	private static Editor putDouble(Editor edit, String key, double value) {
 		return edit.putLong(key, Double.doubleToRawLongBits(value));
@@ -96,5 +97,22 @@ public class Settings {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		return prefs.getInt(PREFS_SPREE, 1);
+	}
+
+	public static String getUserName(Context context) {
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		String name = prefs.getString(PREFS_USER_NAME, "");
+		if (name.equals(""))
+			name = Utils.generateUserName();
+		setUserName(context, name);
+		return name;
+	}
+
+	public static void setUserName(Context context, String name) {
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor edit = prefs.edit();
+		edit.putString(PREFS_USER_NAME, name).commit();
 	}
 }

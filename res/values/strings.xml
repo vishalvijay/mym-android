@@ -59,5 +59,8 @@
     <string name="profile_pic">Profile picture</string>
     <string name="the_richest_man_alive">The Richest Man Alive</string>
     <string name="you_don_apos_t_have_any_shares">You don\'t have any shares</string>
+    <string name="retry">Retry</string>
+    <string name="leader_board_status">Hi %1$s, your rank is %2$s</string>
+    <string name="name_cant_be_blank">Name can\'t be blank</string>
 
 </resources>

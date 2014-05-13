@@ -5,14 +5,15 @@
     android:background="@drawable/card"
     android:orientation="horizontal" >
 
-    <ImageView
-        style="@style/leader"
+    <TextView
+        android:id="@+id/tvRank"
+        style="@style/rank"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:contentDescription="@string/profile_pic"
-        android:src="@drawable/ic_action_person" />
+        android:layout_marginBottom="2dp" />
 
     <LinearLayout
+        style="@style/base_view"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

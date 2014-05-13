@@ -12,6 +12,7 @@ import com.matrix.mym.controller.interfaces.CompanyShareLoaddedCallBack;
 import com.matrix.mym.controller.interfaces.NetWorthLoader;
 import com.matrix.mym.controller.interfaces.UserShareLoadedCallBack;
 import com.matrix.mym.utils.Settings;
+import com.matrix.mym.utils.SystemFeatureChecker;
 
 public class User implements UserShareLoadedCallBack, Parcelable {
 	protected static final String TAG = "User";
@@ -202,12 +203,14 @@ public class User implements UserShareLoadedCallBack, Parcelable {
 	}
 
 	public String getUuid(Context context) {
-		return "";
-		// TODO
+		return SystemFeatureChecker.getDeviceUuid(context);
 	}
 
 	public String getName(Context context) {
-		return "";
-		// TODO
+		return Settings.getUserName(context);
+	}
+
+	public void setName(Context context, String name) {
+		Settings.setUserName(context, name);
 	}
 }

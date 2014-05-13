@@ -9,7 +9,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class MymRestClient {
-	private static final String BASE_URL = "mym-server.herokuapp.com/users";
+	private static final String BASE_URL = "http://mym-server.herokuapp.com";
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
 	public static void get(String url, RequestParams params,
@@ -26,7 +26,7 @@ public class MymRestClient {
 	}
 
 	private static String getAbsoluteUrl(String relativeUrl) {
-		return BASE_URL + "/" + relativeUrl;
+		return BASE_URL + relativeUrl;
 	}
 
 }

@@ -2,6 +2,7 @@ package com.matrix.mym.utils;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.Random;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -76,5 +77,9 @@ public class Utils {
 		Notification notification = mBuilder.build();
 		notification.flags = Notification.FLAG_AUTO_CANCEL;
 		mNotificationManager.notify((int) id, notification);
+	}
+
+	public static String generateUserName() {
+		return "user_" + new Random().nextInt(9999999);
 	}
 }
