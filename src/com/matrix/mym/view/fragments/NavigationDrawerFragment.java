@@ -99,6 +99,9 @@ public class NavigationDrawerFragment extends Fragment {
 		navMenuItem = new NavMenuItem(getString(R.string.leaderboard),
 				R.drawable.ic_action_group);
 		navMenuItems.add(navMenuItem);
+		navMenuItem = new NavMenuItem(getString(R.string.news),
+				R.drawable.ic_action_map);
+		navMenuItems.add(navMenuItem);
 		navMenuItem = new NavMenuItem(getString(R.string.help),
 				R.drawable.ic_action_help);
 		navMenuItems.add(navMenuItem);

@@ -18,6 +18,7 @@ import com.matrix.mym.view.fragments.HelpFragment;
 import com.matrix.mym.view.fragments.LeaderBoardFragment;
 import com.matrix.mym.view.fragments.MySharesFragment;
 import com.matrix.mym.view.fragments.NavigationDrawerFragment;
+import com.matrix.mym.view.fragments.NewsFragment;
 import com.matrix.mym.view.fragments.QuizFragment;
 import com.matrix.mym.view.fragments.StockStatusFragment;
 import com.matrix.mym.view.fragments.VirtualShareMarketFragment;
@@ -78,9 +79,12 @@ public class MymMainActivity extends ActionBarActivity implements
 			fragment = new LeaderBoardFragment();
 			break;
 		case 5:
-			fragment = new HelpFragment();
+			fragment = new NewsFragment();
 			break;
 		case 6:
+			fragment = new HelpFragment();
+			break;
+		case 7:
 			fragment = new AboutFragment();
 			break;
 		}
