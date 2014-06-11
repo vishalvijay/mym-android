@@ -9,4 +9,5 @@ public class Constance {
 	public static final double DEFAULT_QUIZ_MONEY = 500;
 	public static final String HUMAN_READABLE_DATE_FORMATE = "d MMM yyyy h:mm a";
 	public static final String DEFAULT_DATE_FORMATE = "yyyy-MM-dd'T'HH:mm:ss";
+	public static final String BUG_SENSE_KEY = "7ee15897";
 }

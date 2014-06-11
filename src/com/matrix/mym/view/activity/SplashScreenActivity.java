@@ -11,6 +11,7 @@ import com.matrix.mym.R;
 import com.matrix.mym.controller.interfaces.UserShareLoadedCallBack;
 import com.matrix.mym.model.User;
 import com.matrix.mym.model.UserShare;
+import com.matrix.mym.utils.BugSenseManager;
 import com.matrix.mym.utils.GoogleAnalyticsManager;
 
 public class SplashScreenActivity extends Activity implements
@@ -20,6 +21,7 @@ public class SplashScreenActivity extends Activity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		BugSenseManager.initBugSense(this);
 		setContentView(R.layout.activity_spash_screen);
 		mUser = new User(this);
 	}

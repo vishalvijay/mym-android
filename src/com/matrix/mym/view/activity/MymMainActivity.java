@@ -11,7 +11,6 @@ import android.view.Window;
 import com.matrix.mym.R;
 import com.matrix.mym.model.Quiz;
 import com.matrix.mym.model.User;
-import com.matrix.mym.utils.GoogleAnalyticsManager;
 import com.matrix.mym.view.fragments.AboutFragment;
 import com.matrix.mym.view.fragments.HelpFragment;
 import com.matrix.mym.view.fragments.LeaderBoardFragment;
@@ -121,15 +120,4 @@ public class MymMainActivity extends MymActivity implements
 		super.onSaveInstanceState(outState);
 	}
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		GoogleAnalyticsManager.startGoogleAnalyticsForActivity(this);
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		GoogleAnalyticsManager.stopGoogleAnalyticsForActivity(this);
-	}
 }
