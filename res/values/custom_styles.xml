@@ -165,4 +165,24 @@
         <item name="android:drawSelectorOnTop">true</item>
     </style>
 
+    <style name="news_title_details" parent="@style/base_view">
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/status_background</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="common_image_view">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="date_time" parent="@style/base_view">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">@color/text_muted</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:gravity">right</item>
+    </style>
+
 </resources>

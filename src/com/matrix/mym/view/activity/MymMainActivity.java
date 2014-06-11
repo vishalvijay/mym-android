@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.Window;
 
@@ -23,21 +22,14 @@ import com.matrix.mym.view.fragments.QuizFragment;
 import com.matrix.mym.view.fragments.StockStatusFragment;
 import com.matrix.mym.view.fragments.VirtualShareMarketFragment;
 
-public class MymMainActivity extends ActionBarActivity implements
+public class MymMainActivity extends MymActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 	protected static final String TAG = "MymMainActivity";
 	public static final String STATE_USER = "user";
 	public static final String STATE_QUIZ = "quiz";
-	public static final String FRAGMENT_TITLE = "title";
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 	private User mUser;
 	private Quiz mQuiz;
-
-	/**
-	 * Used to store the last screen title. For use in
-	 * {@link #restoreActionBar()}.
-	 */
-	private CharSequence mTitle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +46,7 @@ public class MymMainActivity extends ActionBarActivity implements
 		}
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
-		mTitle = getTitle();
+		onSectionAttached(getTitle().toString());
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 	}
@@ -93,15 +85,11 @@ public class MymMainActivity extends ActionBarActivity implements
 				.commit();
 	}
 
-	public void onSectionAttached(String title) {
-		mTitle = title;
-	}
-
 	public void restoreActionBar() {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setTitle(mTitle);
+		actionBar.setTitle(getCurrentTitle());
 	}
 
 	@Override

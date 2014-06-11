@@ -1,8 +1,12 @@
 package com.matrix.mym.utils;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Random;
+import java.util.TimeZone;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -50,6 +54,27 @@ public class Utils {
 		if (calendar.get(Calendar.AM_PM) == Calendar.PM)
 			amPm = "PM";
 		return hour + ":" + minute + " " + amPm;
+	}
+
+	public static String getHumanReadableDateTime(String dateTime) {
+		String result;
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat(
+					Constance.HUMAN_READABLE_DATE_FORMATE, Locale.getDefault());
+			dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+			result = dateFormat.format(getCalender(dateTime).getTime());
+		} catch (ParseException e) {
+			result = "";
+		}
+		return result;
+	}
+
+	public static Calendar getCalender(String dateTime) throws ParseException {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				Constance.DEFAULT_DATE_FORMATE, Locale.getDefault());
+		calendar.setTime(dateFormat.parse(dateTime));
+		return calendar;
 	}
 
 	public static void showNotification(long id, String titleString,

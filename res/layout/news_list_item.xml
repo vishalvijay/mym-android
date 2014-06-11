@@ -13,11 +13,10 @@
 
     <ImageView
         android:id="@+id/ivNews"
+        style="@style/common_image_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/news_image"
-        android:scaleType="centerCrop" />
+        android:contentDescription="@string/news_image" />
 
     <TextView
         android:id="@+id/tvContent"

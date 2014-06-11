@@ -21,11 +21,13 @@ public class NewsController extends JsonHttpResponseHandler {
 	}
 
 	public void getNewsById(long id) {
+		newsInternetLoader.onLoadingStarted();
 		RequestParams params = new RequestParams();
 		MymRestClient.get("/news/" + id + ".json", params, this);
 	}
 
 	public void getAllNews() {
+		newsInternetLoader.onLoadingStarted();
 		RequestParams params = new RequestParams();
 		MymRestClient.get("/news.json", params, this);
 	}

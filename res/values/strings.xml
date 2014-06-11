@@ -64,5 +64,7 @@
     <string name="name_cant_be_blank">Name can\'t be blank</string>
     <string name="should_be_greater_than_0">Should be greater than 0</string>
     <string name="news_image">News of news</string>
+    <string name="refresh">Refresh</string>
+    <string name="news_help">In news section, we\'ll update latest news\'s about share market and the financial world. Which will help a beginner to learn more about share market and can make the knowledge up to date.</string>
 
 </resources>
